@@ -1,0 +1,12 @@
+.catalog:
+  name: "Huginn"
+  version: "v0.1-huginn"
+  description: "Huginn, a hackable Yahoo! Pipes plus IFTTT on your own server."
+  uuid: huginn-0
+  maintainer: "Dominic Taylor <dominic@yobasystems.co.uk"
+  questions:
+
+huginn:
+  scale: 1
+huginn-postgres:
+  scale: 1

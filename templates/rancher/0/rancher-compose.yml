@@ -1,0 +1,23 @@
+.catalog:
+  name: 'Rancher'
+  version: latest
+  uuid: 'rancher-0'
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: RANCHER_PORT
+    description: 'Rancher port'
+    label: 'Port:'
+    required: true
+    default: 8080
+    type: int
+  - variable: RANCHER_DIR
+    description: 'Rancher directory to save data'
+    label: 'Rancher dir:'
+    required: true
+    default: /var/rancher
+    type: string

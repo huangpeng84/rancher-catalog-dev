@@ -1,0 +1,15 @@
+huginn:
+  ports:
+  - 3000/tcp
+  environment:
+    HUGINN_DATABASE_USERNAME: huginn
+    HUGINN_DATABASE_PASSWORD: insertpasswordhere
+    HUGINN_DATABASE_ADAPTOR: postgresql
+  image: cantino/huginn
+  links:
+  - huginn-postgres:postgres
+huginn-postgres:
+  environment:
+    POSTGRES_PASSWORD: insertpasswordhere
+    POSTGRES_USER: huginn
+  image: postgres

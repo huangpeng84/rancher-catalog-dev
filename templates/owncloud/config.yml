@@ -1,0 +1,5 @@
+name: Owncloud
+description: |
+  Cognotekt owncloud catalog item (pickup label: "auto_balanced")
+version: "0.0.1"
+category: Cognotekt

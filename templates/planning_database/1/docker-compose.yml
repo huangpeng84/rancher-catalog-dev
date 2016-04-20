@@ -1,0 +1,23 @@
+database:
+  image: registry.desenvpln.com.br/planning-oracle-ref:3.14.0.3-SNAPSHOT
+  ports:
+  - "1521"
+algorithm:
+  image: registry.desenvpln.com.br/planning-algorithm:3.14.0.3-SNAPSHOT
+  ports:
+  - "7776"
+  - "9990"
+  links:
+  - database
+  environment:
+  - PLANNING_STACK=true
+web:
+  image: registry.desenvpln.com.br/planning-web:3.14.0.3-SNAPSHOT
+  ports:
+  - "7776"
+  - "9990"
+  links:
+  - algorithm
+  - database
+  environment:
+  - PLANNING_STACK=true

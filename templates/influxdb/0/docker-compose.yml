@@ -1,0 +1,9 @@
+influxdb:
+  image: tutum/influxdb
+  ports:
+    - ${PUBLIC_PORT_ADMIN}:8083
+    - ${PUBLIC_PORT_HTTP_API}:8086
+  environment:
+    ADMIN_USER: ${INFLUXDB_ADMIN_USER}
+    INFLUXDB_INIT_PWD: ${INFLUXDB_INIT_PWD}
+    PRE_CREATE_DB: ${INFLUXDB_PRE_CREATE_DB}

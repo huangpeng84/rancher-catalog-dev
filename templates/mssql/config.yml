@@ -1,0 +1,4 @@
+name: MSSQL
+description: External Service to provide metadata to rancher containers.
+version: 0.0-1
+category: LeanKit Services

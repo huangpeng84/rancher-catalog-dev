@@ -1,0 +1,24 @@
+app:
+  restart: always
+  image: mediadepot/openvpn_as:master
+  ports:
+   - "943"
+   - "60000"
+   - "60001"
+  volumes_from:
+  - data
+  labels:
+    io.rancher.service.selector.link: depot.lb.link
+    io.rancher.sidekicks: data
+    depot.lb.link: true
+    depot.lb.port: 943
+    depot.lb.https: true
+    depot.app.type: openvpnas
+  privileged: true
+data:
+  image: tianon/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - /srv/openvpn/config
+  - /srv/openvpn/data

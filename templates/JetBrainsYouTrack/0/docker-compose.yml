@@ -1,0 +1,6 @@
+YouTrack:
+  hostname: youtrack
+  image: steigr/youtrack
+  volumes:
+  - /data/JetBrains/Youtrack/volumes/opt/Youtrack/data:/opt/Youtrack/data
+  - /data/JetBrains/Youtrack/volumes/opt/Youtrack/backups:/opt/Youtrack/backups

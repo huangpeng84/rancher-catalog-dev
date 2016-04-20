@@ -1,0 +1,24 @@
+.catalog:
+  name: "HotGlue"
+  version: "v0.1"
+  description: "Hotglue site - no DB required"
+  uuid: hotglue-0
+  minimum_rancher_version: v0.51.0
+  questions:
+     - variable: "VOLUME_POOL"
+       description: "Name of the Volume"
+       label: "Storage Volume"
+       required: true
+       type: "string"
+       default: volume_created_in_convoy
+     - variable: "VOLUME_DRIVER"
+       description: "Name of the Volume driver"
+       label: "Driver Volume"
+       required: true
+       type: "string"
+       default: convoy-gluster
+
+hotglue:
+    metadata:
+        volume_pool: "${VOLUME_POOL}" # for gluster    data_storage:/srv/test or local https://docs.docker.com/engine/extend/plugins_volume/#volume-plugin-protocol
+        volume_driver: "${VOLUME_DRIVER}" #

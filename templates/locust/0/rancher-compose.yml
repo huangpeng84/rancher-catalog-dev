@@ -1,0 +1,46 @@
+.catalog:
+  name: Legendary Locust
+  version: 1.0.0-0
+  description: |
+    Locust - a mondern load testing tool
+  minimum_rancher_version: v0.56.0
+  maintainer: "Kevin Nordloh <k.nordloh@mittwald.de>"
+  uuid: legendary-locust-1
+  questions:
+    - variable: "target_url"
+      description: "Es werden sowohl HTTP und HTTPS unterstützt."
+      label: "Bitte hier die Domain eingeben:"
+      required: true
+      default: "http://www.example.com"
+      type: "string"
+
+
+Locust-Slave-01:
+  scale: 1
+
+Locust-Slave-02:
+  scale: 1
+
+Locust-Slave-03:
+  scale: 1
+
+Locust-Slave-04:
+  scale: 1
+
+Locust-Slave-05:
+  scale: 1
+
+Locust-Slave-06:
+  scale: 1
+
+Locust-Slave-07:
+  scale: 1
+
+Locust-Slave-08:
+  scale: 1
+
+Locust-Slave-09:
+  scale: 1
+
+Locust-Slave-10:
+  scale: 1

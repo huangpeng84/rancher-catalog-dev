@@ -1,0 +1,11 @@
+.catalog:
+  name: "guacamole"
+  version: "1.0"
+  description: "Guacamole"
+  uuid: guacamole-0
+guacweb:
+  scale: 1
+guacd:
+  scale: 1
+db:
+  scale: 1

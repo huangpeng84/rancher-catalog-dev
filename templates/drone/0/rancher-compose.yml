@@ -1,0 +1,43 @@
+.catalog:
+  name: drone
+  version: 0.4-3
+  description: Drone CI
+  uuid: drone-0.4-3
+  questions:
+    - variable: github_id
+      label: GitHub Application API ID
+      type: string
+      required: true
+    - variable: github_secret
+      label: GitHub Application API Secret
+      type: password
+      required: true
+    - variable: cert_name
+      label: SSL Cert Name
+      description: |
+        SSL Cert Regestered in Rancher
+        Infrastructure -> Certificates -> Add Certificate
+      type: string
+      required: true
+
+drone-server:
+  scale: 1
+  health_check:
+    port: 80
+    interval: 5000
+    unhealthy_threshold: 2
+    request_line: GET /static/ HTTP/1.1
+    healthy_threshold: 2
+    response_timeout: 2000
+
+drone:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  default_cert: "${cert_name}"
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

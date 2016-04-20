@@ -1,0 +1,4 @@
+name: Traefik
+description: 'Reverse proxy'
+category: Utils
+version: latest

@@ -1,0 +1,35 @@
+.catalog:
+  name: MySQL
+  version: latest
+  uuid: mysql-0
+  questions:
+  - variable: MYSQL_PORT
+    description: 'MySQL exposed port'
+    label: 'Port:'
+    required: true
+    default: 3306
+    type: int
+  - variable: MYSQL_DATABASE
+    description: 'MySQL database'
+    label: 'Database:'
+    required: true
+    default: sample
+    type: string
+  - variable: MYSQL_USER
+    description: 'MySQL user'
+    label: 'User:'
+    required: true
+    default: user
+    type: string
+  - variable: MYSQL_PASSWORD
+    description: 'MySQL password'
+    label: 'Password:'
+    required: true
+    default: password
+    type: string
+  - variable: MYSQL_ROOT_PASSWORD
+    description: 'MySQL root password'
+    label: 'MySQL password:'
+    required: true
+    default: s3Cr3T!
+    type: string

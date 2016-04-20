@@ -1,0 +1,13 @@
+.catalog:
+  name: "MiGAP-GalaxyGE"
+  version: "v0.0.5"
+  description: "MiGAP on Galaxy with GridEngine"
+  questions:
+  - variable: "scale"
+    label: "Nodes"
+    description: "Number of nodes"
+    required: true
+    default: 1
+    type: "int"
+megap-galaxy:
+  scale: "${scale}"

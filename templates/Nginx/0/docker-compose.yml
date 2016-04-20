@@ -1,0 +1,5 @@
+nginx:
+  restart: always
+  image: nginx
+  labels:
+    io.rancher.container.hostname_override: container_name

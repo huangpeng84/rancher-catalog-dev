@@ -1,0 +1,23 @@
+app:
+  restart: always
+  image: mediadepot/headphones:master
+  ports:
+   - "8080"
+  volumes_from:
+  - data
+  volumes:
+  - /mnt/samba/music:/mnt/music
+  - /mnt/samba/downloads/[Music]:/mnt/downloads
+  - /mnt/samba/blackhole/[Music]:/mnt/blackhole
+  labels:
+    io.rancher.sidekicks: data
+    depot.lb.link: true
+    depot.lb.port: 8080
+    depot.app.type: headphones
+data:
+  image: tianon/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - /srv/headphones/config
+  - /srv/headphones/data

@@ -1,0 +1,21 @@
+sonarqube:
+  image: "${sonarqube_image}"
+  ports:
+    - "${exposed_port_0}:9000"
+    #- "${exposed_port_1}:9092"
+  volumes_from:
+    - sonarqube-data
+  environment:
+    - "SONARQUBE_JDBC_URL=${jdbc_url}"
+    - "SONARQUBE_JDBC_USERNAME=${jdbc_user}"
+    - "SONARQUBE_JDBC_PASSWORD=${jdbc_pass}"
+    - "PLUGINLIST_URL=http://rancher-metadata/latest/self/service/metadata/pluginlist"
+  labels:
+    io.rancher.sidekicks: sonarqube-data
+
+sonarqube-data:
+  image: busybox
+  volumes:
+    - /opt/sonarqube/extensions/plugins
+  labels:
+    io.rancher.container.start_once: 'true'

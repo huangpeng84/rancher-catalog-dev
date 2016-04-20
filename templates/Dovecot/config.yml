@@ -1,0 +1,4 @@
+name: Dovecot
+description: Dovecot IMAP, POP3, and Sieve Server
+version: 2.2.23
+category: Mail

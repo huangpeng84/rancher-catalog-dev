@@ -1,0 +1,93 @@
+rsas:
+  image: ${rsas_image}
+  expose:
+  - "1194"
+  ulimit:
+    memlock: 104857600
+  environment:
+    CONSUL: consul.cognotekt.int
+    PROM_PUSHGATEWAY: consul:prom-pushgateway
+    RSAS_SERVICE_ID: ${service_id}
+    CVS_HOST: cvs-balancer
+    CVS_PORT: '8080'
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+  links:
+  - "cvs-balancer:cvs-balancer"
+
+rsas-client:
+  image: ${rsas_client_image}
+  command: -vvvvv --flask-proxy-fix ${rsas_client_proxy_fix}
+  expose:
+    - "5000"
+  environment:
+    RSAS_HOST:  rsas
+    RSAS_PORT:  '1194'
+    CVS_HOST:   cvs-balancer
+    CVS_PORT:   '8080'
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+  links:
+    - "cvs-balancer:cvs-balancer"
+    - "rsas:rsas"
+
+cfgtool:
+  image: ${cfgtool_image}
+  expose:
+    - "8000"
+  environment:
+    DB_CONNECTION: ${config_db_connection}
+    DB_PASSWORD: ${config_db_password}
+    DEBUG: False
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+
+cvs-balancer:
+  expose:
+    - "8080:8090/tcp"
+  image: rancher/load-balancer-service
+  links:
+    - cvs:cvs
+
+cvs:
+  image: ${cvs_image}
+  command: config/cvsConfig.json
+  volumes_from:
+    - cvs-config
+  expose:
+    - "8090"
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: cvs-config
+
+cvs-config:
+  image: ${cvs_config_image}
+  labels:
+    io.rancher.container.start_once: "true"
+    io.rancher.container.pull_image: always
+
+
+entry:
+  ports:
+    - "${entry_port}:1194"
+  image: rancher/load-balancer-service
+  links:
+    - "rsas-client:rsas-client"
+    - "cvs:cvs"
+    - "rsas:rsas"
+    - "cfgtool:cfgtool"
+  labels:
+    io.rancher.scheduler.affinity:host_label: webtraffic=true
+    io.rancher.scheduler.global: 'true'
+    io.rancher.loadbalancer.target.cvs: /cvs=8090
+    io.rancher.loadbalancer.target.rsas-client: /client=1234
+    io.rancher.loadbalancer.target.rsas: /=1194
+    io.rancher.loadbalancer.target.cfgtool: /cfgtool=8000

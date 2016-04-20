@@ -1,0 +1,14 @@
+check:
+  image: 10.40.31.143:5000/kiemsi/etcd
+  net: "container:monitoring"
+  command: check
+monitoring:
+  image: 10.40.31.143:5000/kiemsi/etcd
+  labels:
+    io.rancher.container.hostname_override: container_name
+  labels:
+    io.rancher.sidekicks: check
+  command: monitoring
+cluster:
+  image: 10.40.31.143:5000/kiemsi/etcd
+  command: cluster

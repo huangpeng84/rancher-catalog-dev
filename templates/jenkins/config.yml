@@ -1,0 +1,4 @@
+name: Jenkins
+description: 'Continuous Integration'
+category: Forge
+version: latest

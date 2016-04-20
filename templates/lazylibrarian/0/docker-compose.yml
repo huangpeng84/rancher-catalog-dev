@@ -1,0 +1,23 @@
+app:
+  restart: always
+  image: mediadepot/lazylibrarian:master
+  ports:
+   - "8080"
+  volumes_from:
+  - data
+  volumes:
+  - /mnt/samba/ebooks:/mnt/ebooks
+  - /mnt/samba/downloads/[Ebooks]:/mnt/downloads
+  - /mnt/samba/blackhole/[Ebooks]:/mnt/blackhole
+  labels:
+    io.rancher.sidekicks: data
+    depot.lb.link: true
+    depot.lb.port: 8080
+    depot.app.type: lazylibrarian
+data:
+  image: tianon/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - /srv/lazylibrarian/config
+  - /srv/lazylibrarian/data

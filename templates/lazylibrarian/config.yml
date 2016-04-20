@@ -1,0 +1,4 @@
+name: LazyLibrarian
+description: Goal is to create a SickBeard, CouchPotato, Headphones-like application for ebooks. Based on DobyTang fork.
+category: Media
+version: 1.0

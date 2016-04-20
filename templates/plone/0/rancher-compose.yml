@@ -1,0 +1,27 @@
+.catalog:
+  name: "Plone"
+  version: "5.0-rancher1"
+  description: "Plone is the premier Python-based CMS"
+  uuid: plone-0
+loadbalancer:
+  scale: 1
+  load_balancer_config:
+    name: Plone5 lb config
+app1:
+  scale: 2
+  health_check:
+    port: 80
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+zeo:
+  scale: 1
+  health_check:
+    port: 8100
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

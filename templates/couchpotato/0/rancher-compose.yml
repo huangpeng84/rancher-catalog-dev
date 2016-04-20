@@ -1,0 +1,9 @@
+.catalog:
+  name: "couchpotato"
+  version: "1.0"
+  description: "Couchpotato"
+  uuid: couchpotato-0
+app:
+  scale: 1
+data:
+  scale: 1

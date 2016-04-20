@@ -1,0 +1,15 @@
+tvtime-xidan:
+  labels:
+    io.rancher.container.pull_image: always
+  image: registry.cntv.net/xinming/tvtime-php:v0.82
+  stdin_open: true
+slbtime:
+  ports:
+  - 80:80
+  labels:
+    io.rancher.scheduler.global: 'true'
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - tvtime-xidan:tvtime-xidan
+  stdin_open: true

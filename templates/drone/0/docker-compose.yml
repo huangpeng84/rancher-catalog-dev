@@ -1,0 +1,41 @@
+drone-server:
+  labels:
+    io.rancher.container.pull_image: always
+  image: jgreat/drone
+  expose:
+    - 80
+  volumes_from:
+    - drone-data-volume
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  environment:
+    DATABASE_CONFIG: /var/lib/drone/drone.sqlite
+    DATABASE_DRIVER: sqlite3
+    REMOTE_DRIVER: github
+    REMOTE_CONFIG: "https://github.com?client_id=${github_id}&client_secret=${github_secret}"
+    SERVER_ADDR: ":80"
+    PLUGIN_FILTER: "plugins/* leankit/* jgreat/* arobson/*"
+    ESCALATE_FILTER: "plugins/drone-docker plugins/drone-ecr plugins/drone-gcr leankit/drone-docker"
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.sidekicks: drone-data-volume
+
+drone-data-volume:
+  image: leankit/drone-volume-backup:20160220
+  net: none
+  command: /bin/true
+  labels:
+    io.rancher.container.start_once: 'true'
+  volumes:
+    - /var/lib/drone
+    - /etc/drone
+    - /opt/rancher
+
+drone:
+  ports:
+  - 443:80
+  labels:
+    io.rancher.loadbalancer.ssl.ports: '443'
+  image: rancher/load-balancer-service
+  links:
+  - drone-server:drone-server

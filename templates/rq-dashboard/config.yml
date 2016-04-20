@@ -1,0 +1,8 @@
+name: RQ Web Dashboard
+description: |
+  Web interface to peek into the RQ queues.
+version: 0.1
+category: python
+maintainer: "Thomas Davis <tadavis@lbl.gov>"
+minimum_rancher_version: v0.56.0
+license: 

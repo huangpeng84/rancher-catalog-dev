@@ -1,0 +1,23 @@
+.catalog:
+  name: Legendary Wordpress Nginx
+  version: 1.0.0-0
+  description: |
+    Wordpress with Nginx, MySQL and SSH.
+  maintainer: "Kevin Nordloh <mail@legendary-server.de>"
+  uuid: legendary-wordpress-nginx-1
+  questions:
+    - variable: "url"
+      description: "Domain in Format examlpe.com without www, http or https."
+      label: "Please type in your Domain:"
+      required: true
+      default: "example.com"
+      type: "string"
+    - variable: "email"
+      label: "Please type in your E-Mail:"
+      required: true
+      default: "mail@example.com"
+      type: "string"
+
+
+wordpress_nginx:
+  scale: 1

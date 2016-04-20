@@ -1,0 +1,39 @@
+gitlab:
+  image: gitlab/gitlab-ce:latest
+  hostname: gitlab.${DOMAIN}
+  ports:
+  - ${GITLAB_SSH_PORT}:22/tcp
+  labels:
+    traefik.port: '80'
+    traefik.frontend.rule: 'Host'
+    traefik.frontend.value: 'gitlab.${DOMAIN}'
+    traefik.frontend.passHostHeader: 'true'
+  environment:
+    GITLAB_ROOT_PASSWORD: 'password'
+    GITLAB_OMNIBUS_CONFIG: |
+      external_url 'http://gitlab.${DOMAIN}'
+      gitlab_rails['time_zone'] = 'Europe/Paris'
+      gitlab_rails['gitlab_email_from'] = 'gitlab@${DOMAIN}'
+      gitlab_rails['gitlab_email_display_name'] = 'GitLab on ${DOMAIN}'
+      gitlab_rails['gitlab_email_reply_to'] = 'noreply@${DOMAIN}'
+      gitlab_rails['gitlab_ssh_host'] = '${DOMAIN}'
+      gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_SSH_PORT}
+      gitlab_shell['log_level'] = 'WARN'
+      gitlab_rails['smtp_enable'] = true
+      gitlab_rails['smtp_address'] = 'maildev.${DOMAIN}'
+      gitlab_rails['smtp_port'] = 1025
+      gitlab_rails['smtp_domain'] = '${DOMAIN}'
+      gitlab_rails['smtp_openssl_verify_mode'] = 'none'
+      gitlab_rails['smtp_tls'] = false
+      gitlab_rails['smtp_authentication'] = false
+      gitlab_rails['smtp_enable_starttls_auto'] = false
+      nginx['listen_https'] = false
+      nginx['list_port'] = 80
+  volumes:
+  - ${GITLAB_DIR}/config:/etc/gitlab
+  - ${GITLAB_DIR}/data:/var/opt/gitlab
+  log_opt:
+    max-size: '50m'
+  restart: 'no'
+  cpu_shares: 512
+  mem_limit: 2147483648

@@ -1,0 +1,25 @@
+app:
+  restart: always
+  image: mediadepot/btsync:master
+  ports:
+   - "8080"
+   - "55555:55555"
+  volumes_from:
+  - data
+  volumes:
+  - /mnt/samba/tvshows:/mnt/tvshows
+  - /mnt/samba/movies:/mnt/movies
+  - /mnt/samba/music:/mnt/music
+  - /mnt/samba/blackhole:/mnt/blackhole
+  labels:
+    io.rancher.sidekicks: data
+    depot.lb.link: true
+    depot.lb.port: 8080
+    depot.app.type: btsync
+data:
+  image: tianon/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - /srv/btsync/config
+  - /srv/btsync/data

@@ -1,0 +1,18 @@
+.catalog:
+  name: consul-service
+  version: "0.0.1"
+  description: A consul service discovery with UI
+  uuid: consul-service-0
+  questions:
+    - variable: consul_image
+      label: Consul image src
+      description: The consul docker image to use for the service
+      default: quay.io/c11h/rancher-consul:latest
+      required: true
+      type: string
+
+consul-seed:
+  scale: 1
+
+consul-masters:
+  scale: 2

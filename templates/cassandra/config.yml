@@ -1,0 +1,8 @@
+name: Apache Cassandra
+description: |
+  (Experimental) Cassandra cluster
+version: 2.2.5-rancher1
+category: clustering
+maintainer: "Autoshift"
+minimum_rancher_version: v0.56.0
+license:

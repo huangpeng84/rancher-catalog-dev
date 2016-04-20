@@ -1,0 +1,149 @@
+.catalog:
+  name: Dovecot
+  version: 2.2.23
+  description: Dovecot IMAP, POP3, and Sieve Server
+  uuid: dovecot-server-0
+  questions: 
+  - variable: "DOMAIN"
+    label: "Domain"
+    description: "Primary Domain of Mailserver"
+    default: example.com
+    required: true
+    type: "string"
+  - variable: "WITH_POP3"
+    label: "Enable POP3(s)"
+    description: "Enable POP3(s) protocol"
+    default:  "false"
+    type: "boolean"
+  - variable: "WITH_SIEVE"
+    label: "Enable SIEVE"
+    description: "Enable sieve protocol"
+    default:  "true"
+    type: "boolean"
+  - variable: "WITH_IMAP"
+    label: "Enable IMAPS(s)"
+    description: "Enable IMAP(s) protocol"
+    default:  "true"
+    type: "boolean"
+  - variable: "DATABASE_DRIVER"
+    label: "Database Type"
+    default: ""
+    required: false
+    type: "enum"
+    options:
+    - ""
+    - postgres
+    - mysql
+    - sqlite3
+  - variable: "DATABASE_CONTAINER"
+    label: "Database Contaier"
+    required: false
+    type: "service"
+  - variable: "DATABASE_HOST"
+    label: "Database Server"
+    required: false
+    type: "string"
+    default: "database-server"
+  - variable: "DATABASE_NAME"
+    label: "Database Name"
+    required: false
+    type: "string"
+  - variable: "DATABASE_USER"
+    label: "Database User"
+    default: dovecot
+    required: false
+    type: "string"
+  - variable: "DATABASE_PASSWORD"
+    label: "Database Password"
+    required: false
+    type: "password"
+  - variable: "PROXY_PROTOCOL_ENABLE"
+    label: "PROXY-Protocol"
+    description: "Enable Services with PROXY-Protocol Encapsulation"
+    required: true
+    default: "true"
+    type: "boolean"
+  - variable: "PROXY_PROTOCOL_OFFSET"
+    label: "PROXY-Protocol Port Offset"
+    description: "Offset of PROXY-Protocol-Services, with '10000' IMAP /w PROXY is reachable under 10143"
+    required: false
+    type: "int"
+  - variable: "PROXY_TRUSTED_NETWORKS"
+    label: "PROXY-Protocol Trusted Networks"
+    required: false
+    type: "string"
+    default: "10.42.0.0/16"
+  - variable: "SSL_CERTIFICATE_KEY"
+    label: "SSL Private Key"
+    required: false
+    type: "multiline"
+  - variable: "SSL_CERTIFICATE"
+    label: "SSL Certificate"
+    required: false
+    type: "multiline"
+  - variable: "SSL_CERTIFICATE_CHAIN"
+    label: "SSL Certificate Chain"
+    required: false
+    type: "multiline"
+  - variable: "SMTP_RELAY_CONTAINER"
+    label: "SMTP Relay Container"
+    required: false
+    type: "service"
+  - variable: "SMTP_RELAY_HOST"
+    label: "SMTP Relay Name"
+    required: false
+    type: "string"
+    default: "mailserver"
+  - variable: "SMTP_RELAY_AUTH_ENABLED"
+    label: "Enable SMTP Relay authentification"
+    required: false
+    type: "boolean"
+    default: false
+  - variable: "SMTP_RELAY_AUTH_USERNAME"
+    label: "SMTP Relay Username"
+    required: false
+    type: "string"
+  - variable: "SMTP_RELAY_AUTH_PASSWORD"
+    label: "SMTP Relay Password"
+    required: false
+    type: "password"
+  - variable: "SMTP_RELAY_USE_TLS"
+    label: "SMTP Relay uses TLS/SSL"
+    required: false
+    type: "boolean"
+    default: false
+
+Server:
+  scale: 1
+  health_check:
+    port: 143
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    response_timeout: 2000
+    healthy_threshold: 2
+  metadata:
+    gr.stei.dovecot.domain: ${DOMAIN}
+    gr.stei.dovecot.imap.enable: ${WITH_IMAP}
+    gr.stei.dovecot.sive.enable: ${WITH_SIEVE}
+    gr.stei.dovecot.pop3.enable: ${WITH_POP3}
+    gr.stei.dovecot.global.ssl.certificate: ${SSL_CERTIFICATE}
+    gr.stei.dovecot.global.ssl.key: ${SSL_CERTIFICATE_KEY}
+    gr.stei.dovecot.global.ssl.chain: ${SSL_CERTIFICATE_CHAIN}
+    gr.stei.dovecot.database.driver: ${DATABASE_DRIVER}
+    gr.stei.dovecot.database.server: ${DATABASE_HOST}
+    gr.stei.dovecot.database.user: ${DATABASE_USER}
+    gr.stei.dovecot.database.password: ${DATABASE_PASSWORD}
+    gr.stei.dovecot.database.name: ${DATABASE_NAME}
+    gr.stei.dovecot.proxy.enable: ${PROXY_PROTOCOL_ENABLE}
+    gr.stei.dovecot.proxy.offset: ${PROXY_PROTOCOL_OFFSET}
+    gr.stei.dovecot.proxy.trusted.networks: ${PROXY_TRUSTED_NETWORKS}
+    gr.stei.dovecot.smtp.relay.host: ${SMTP_RELAY_HOST}
+    gr.stei.dovecot.smtp.relay.name: ${SMTP_RELAY_NAME}
+    gr.stei.dovecot.smtp.relay.auth: ${SMTP_RELAY_AUTH_ENABLED}
+    gr.stei.dovecot.smtp.relay.user: ${SMTP_RELAY_AUTH_USERNAME}
+    gr.stei.dovecot.smtp.relay.password: ${SMTP_RELAY_AUTH_PASSWORD}
+    gr.stei.dovecot.smtp.relay.secure: ${SMTP_RELAY_USE_TLS}

@@ -1,0 +1,8 @@
+name: Apache Cassandra with 1 DC and 2 racks
+description: |
+  (Experimental) Cassandra only allows us to add one new node at any given time which means we have to be careful about how we launch services. We have to launch the seed service before the rack services. We have to make sure we only scale up each rack service at any given time. In addition, we can only scale up one rack services at a time.
+version: 2.2.5-rancher1
+category: clustering
+maintainer: "Autoshift"
+minimum_rancher_version: v0.56.0
+license:

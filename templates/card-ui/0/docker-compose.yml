@@ -1,0 +1,19 @@
+card-ui:
+  image: rancher/load-balancer-service
+  ports:
+    - 8100:8100/tcp
+  stdin_open: true
+  tty: true
+  links:
+    - card-ui-app:card-ui-app
+
+card-ui-app:
+  image: leankit/card.ui:latest
+  expose:
+    - 8008/tcp
+  stdin_open: true
+  tty: true
+  environment:
+    LK_RANCHER_SERVICE_DISCOVERY: 'true'
+  labels:
+    io.rancher.container.pull_image: always

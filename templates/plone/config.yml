@@ -1,0 +1,4 @@
+name: "Plone"
+description: "Plone is the premier Python-based CMS"
+version: "5.0-rancher1"
+category: "Content Management Systems"

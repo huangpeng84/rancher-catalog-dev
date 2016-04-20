@@ -1,0 +1,5 @@
+name: Logspout
+description: |
+  Glider Labs Logspout with Logstash adapter
+version: v2
+category: Logpout

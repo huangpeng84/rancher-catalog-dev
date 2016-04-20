@@ -1,0 +1,20 @@
+core-leankit-api-app:
+  image: leankit/core-leankit-api:latest
+  expose:
+    - 8008/tcp
+  stdin_open: true
+  tty: true
+  environment:
+    LK_RANCHER_SERVICE_DISCOVERY: 'true'
+    LK__AUTH__API_TOKEN_SALT: ${auth_salt}
+  labels:
+    io.rancher.container.pull_image: always
+
+core-leankit-api:
+  image: rancher/load-balancer-service
+  ports:
+    - 8000:8000/tcp
+  stdin_open: true
+  tty: true
+  links:
+    - core-leankit-api-app:core-leankit-api-app

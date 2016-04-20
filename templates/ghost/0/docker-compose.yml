@@ -1,0 +1,7 @@
+ghost:
+  image: ghost
+  ports:
+    - "2368"
+  volumes:
+  - ${VOLUME_POOL}:/usr/src/ghost/content
+  volume_driver: ${VOLUME_DRIVER}

@@ -1,0 +1,11 @@
+TeamCity:
+  hostname: teamcity
+  image: steigr/teamcity
+  volumes:
+  - /data/JetBrains/TeamCity/volumes/opt/TeamCity/data:/opt/TeamCity/data
+  - /data/JetBrains/TeamCity/volumes/opt/TeamCity/backups:/opt/TeamCity/backups
+
+TeamCity-Agent:
+  image: steigr/teamcity-agent
+  links:
+  - TeamCity:teamcity

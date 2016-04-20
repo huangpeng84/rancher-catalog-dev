@@ -1,0 +1,9 @@
+mssql:
+  image: rancher/external-service
+  labels:
+    io.leankit.service.username: ${sql_username}
+    io.leankit.service.password: ${sql_password}
+    io.leankit.service.domain: ${sql_domain}
+    io.leankit.service.port: ${sql_port}/tcp
+    io.leankit.service.database: ${sql_database}
+    io.leankit.service.hostname: ${sql_hostname}

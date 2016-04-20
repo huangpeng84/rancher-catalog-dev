@@ -1,0 +1,11 @@
+motioneye:
+  container_name: motioneye
+  image: docker-registry.crt.nersc.gov:5000/f23/motioneye:0.31.3
+  net: host
+  ports:
+    - 8765
+  labels:
+    io.rancher.container.hostname_override: "${ME_NAME}"
+  volumes:
+    - motioneye-etc:/etc/motioneye
+    - motioneye:/var/lib/motioneye

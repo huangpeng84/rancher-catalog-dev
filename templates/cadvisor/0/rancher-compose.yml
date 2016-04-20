@@ -1,0 +1,11 @@
+.catalog:
+    name: "Cadvisor"
+    version: "v1"
+    description: "Cadvisor from heqinqin build"
+    questions:
+     - variable: "INFLUXDB"
+       description: "Command of influxdb address"
+       label: "influxdb"
+       required: true
+       type: "string"
+       default: 10.72.7.187

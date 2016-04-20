@@ -1,0 +1,9 @@
+.catalog:
+  name: "btsync"
+  version: "1.0"
+  description: "Bittorrent Sync"
+  uuid: btsync-0
+app:
+  scale: 1
+data:
+  scale: 1

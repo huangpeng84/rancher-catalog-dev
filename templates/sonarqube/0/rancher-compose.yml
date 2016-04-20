@@ -1,0 +1,57 @@
+.catalog:
+  name: sonarqube-cognotekt
+  version: "0.0.1"
+  description: |
+    Sonarqube instance with optional plugins to download
+  uuid: sonarqube-cognotekt-0
+  questions:
+
+    - variable: sonarqube_image
+      label: Sonarqube docker image
+      required: true
+      default: flypenguin/sonarqube
+      type: string
+
+    - variable: pluginlist
+      label: Install plugin list
+      description: "Format: PLUGIN_URL FILENAME [ ; PLUGINURL2 FILENAME2 ; ... ]"
+      required: false
+      type: multiline
+
+    - variable: jdbc_url
+      label: JDBC URL
+      description: "jdbc:<DBTYPE>://<HOST>/<DBNAME> (type: postgresql, h2:tcp, mysql)"
+      required: true
+      default: "jdbc:h2:tcp://localhost/sonar"
+      type: string
+
+    - variable: jdbc_user
+      label: JDBC user name
+      description: "'sonar' for H2 database"
+      required: false
+      default: sonar
+      type: string
+
+    - variable: jdbc_pass
+      label: JDBC user password
+      description: "'sonar' for H2 database"
+      required: false
+      default: sonar
+      type: string
+
+    - variable: exposed_port_0
+      label: Port to open on Rancher host
+      required: true
+      default: 9000
+      type: int
+
+    # - variable: exposed_port_1
+    #   label: Public port which binds to container:9092
+    #   required: true
+    #   default: 9092
+    #   type: int
+
+sonarqube:
+  scale: 1
+  metadata:
+    pluginlist: "${pluginlist}"

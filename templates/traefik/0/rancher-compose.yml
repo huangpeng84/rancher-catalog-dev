@@ -1,0 +1,29 @@
+.catalog:
+  name: Traefik
+  version: latest
+  uuid: traefik-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: LISTEN_PORT
+    description: 'Port on which reverse-proxy listen'
+    label: 'Port:'
+    required: true
+    default: 80
+    type: int
+  - variable: WEB_PORT
+    description: 'Port on which webapp listen'
+    label: 'WebApp port:'
+    required: true
+    default: 8080
+    type: int
+  - variable: TRAEFIK_DIR
+    description: 'Directory where configuration is'
+    label: 'Directory:'
+    required: true
+    default: '/var/traefik'
+    type: 'string'

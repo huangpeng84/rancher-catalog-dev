@@ -1,0 +1,18 @@
+.catalog:
+  name: "utility"
+  version: "1.0"
+  description: "Utility"
+  uuid: utility-0
+  questions:
+    - variable: "RANCHER_LOADBALANCER_PORT"
+      description: "The public port the load balancer is listening on"
+      label: "Rancher LoadBalancer Port"
+      required: true
+      default: "80"
+      type: "string"
+lb:
+  scale: 1
+  load_balancer_config:
+    name: lb config
+events:
+  scale: 1

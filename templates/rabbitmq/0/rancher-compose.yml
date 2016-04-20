@@ -1,0 +1,17 @@
+.catalog:
+  name: RabbitMQ
+  version: latest
+  uuid: rabbitmq-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: RABBIT_PORT
+    description: 'Rabbit port'
+    label: 'Port:'
+    required: true
+    default: 5672
+    type: int

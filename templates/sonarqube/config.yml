@@ -1,0 +1,5 @@
+name: Sonarqube
+description: |
+  Sonarqube instance with auto-plugin-download capability. Supercool.
+version: "0.0.1"
+category: Cognotekt

@@ -1,0 +1,5 @@
+name: "UC6 Platform"
+description: |
+  6fusion UC6 Infrastructure Metering Platform
+version: v1.4
+category: Metering

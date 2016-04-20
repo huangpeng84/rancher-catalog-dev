@@ -1,0 +1,66 @@
+.catalog:
+  name: Cassandra
+  version: 2.2.5-rancher1
+  description: |
+    (Experimental) Apache Cassandra cluster. Cassandra only allows us to add one new node at any given time which means we have to be careful about how we launch services. We have to launch the seed service before the rack services. We have to make sure we only scale up each rack service at any given time. In addition, we can only scale up one rack services at a time.
+  minimum_rancher_version: v0.56.0
+  maintainer: Autoshift
+  uuid: cassandra-0
+  questions:
+    - variable: "SeedScale"
+      description: "Number of cassandra seed nodes (in Rack1)."
+      label: "Seed Scale:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "Rack1Scale"
+      description: "Number of cassandra nodes in Rack 1."
+      label: "Rack 1 Scale:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "rack1_label"
+      description: "Rack1 Host Labels. # of hosts = # of containers. Same container should be on same host."
+      label: "Rack1 Host label:"
+      required: true
+      default: ""
+      type: "string"
+    - variable: "Rack2Scale"
+      description: "Number of cassandra nodes in Rack 2."
+      label: "Rack 2 Scale:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "rack2_label"
+      description: "Rack2 Host Labels. # of hosts = # of containers. Same container should be on same host."
+      label: "Rack2 Host label:"
+      required: true
+      default: ""
+      type: "string"
+CassandraSeed:
+  scale: ${SeedScale}
+  health_check:
+    port: 9042
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+Cassandra1:
+  scale: ${Rack1Scale}
+  health_check:
+    port: 9042
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+Cassandra2:
+  scale: ${Rack2Scale}
+  health_check:
+    port: 9042
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

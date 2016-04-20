@@ -1,0 +1,34 @@
+www-data:
+  image: flowman/joomla:3.5.1
+  net: none
+  command: /bin/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+    - ${volume_data}/usr/share/nginx/html
+  volume_driver: ${volume_driver}    
+php-fpm:
+  image: flowman/php-fpm:7.0.5-alpine
+  net: "container:nginx"
+  labels:
+    io.rancher.container.hostname_override: container_name
+  volumes_from:
+    - 'www-data'
+nginx:
+  image: flowman/nginx:1.9.14-alpine
+  labels:
+    io.rancher.sidekicks: php-fpm, www-data
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+  volumes_from:
+    - 'www-data'
+  external_links:
+    - ${database_link}:mysql
+lb:
+  ports:
+  - 80:80/tcp
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - nginx:nginx
+  stdin_open: true

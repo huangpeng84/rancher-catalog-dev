@@ -1,0 +1,4 @@
+name: "Kibana 4"
+description: "Visualization dashboard"
+version: "4.3.1-mgolly1"
+category: ELK

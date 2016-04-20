@@ -1,0 +1,112 @@
+elasticsearch-masters:
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: elasticsearch-base-master,elasticsearch-datavolume-masters
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  image: mgolly/elasticsearch-conf:v2.1.1
+elasticsearch-datavolume-masters:
+  labels:
+    elasticsearch.datanode.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  image: elasticsearch:2.1.1
+  volumes:
+    - /usr/share/elasticsearch/data
+  net: "container:elasticsearch-masters"
+  entrypoint: /bin/true
+elasticsearch-base-master:
+  labels:
+    elasticsearch.master.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  image: elasticsearch:2.1.1
+  volumes_from:
+    - elasticsearch-masters
+    - elasticsearch-datavolume-masters
+  net: "container:elasticsearch-masters"
+  entrypoint:
+    - /opt/rancher/bin/run.sh
+
+
+elasticsearch-datanodes:
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: elasticsearch-base-datanode,elasticsearch-datavolume-datanode
+    io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  links:
+    - elasticsearch-masters:es-masters
+  image: mgolly/elasticsearch-conf:v2.1.1
+elasticsearch-datavolume-datanode:
+  labels:
+    elasticsearch.datanode.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  image: elasticsearch:2.1.1
+  volumes:
+    - /usr/share/elasticsearch/data
+  net: "container:elasticsearch-datanodes"
+  entrypoint: /bin/true
+elasticsearch-base-datanode:
+  labels:
+    elasticsearch.datanode.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  links:
+    - elasticsearch-masters:es-masters
+  image: elasticsearch:2.1.1
+  volumes_from:
+    - elasticsearch-datanodes
+    - elasticsearch-datavolume-datanode
+  net: "container:elasticsearch-datanodes"
+  entrypoint:
+    - /opt/rancher/bin/run.sh
+
+
+elasticsearch-clients:
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: elasticsearch-base-clients,elasticsearch-datavolume-clients
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  links:
+    - elasticsearch-masters:es-masters
+  image: mgolly/elasticsearch-conf:v2.1.1
+elasticsearch-datavolume-clients:
+  labels:
+    elasticsearch.datanode.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  image: elasticsearch:2.1.1
+  volumes:
+    - /usr/share/elasticsearch/data
+  net: "container:elasticsearch-clients"
+  entrypoint: /bin/true
+elasticsearch-base-clients:
+  labels:
+    elasticsearch.client.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity.host_label_soft: elasticsearch=true
+  image: elasticsearch:2.1.1
+  volumes_from:
+    - elasticsearch-clients
+    - elasticsearch-datavolume-clients
+  net: "container:elasticsearch-clients"
+  entrypoint:
+    - /opt/rancher/bin/run.sh
+
+
+kopf:
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity.host_label_soft: interface=true
+  links:
+    - elasticsearch-clients:es-clients
+  image: mgolly/kopf:v2.1.1
+  ports: 
+    - "8080:80"
+  environment:
+    KOPF_SERVER_NAME: 'es.dev'
+    KOPF_ES_SERVERS: 'es-clients:9200'

@@ -1,0 +1,8 @@
+name: Metabase
+description: |
+  Create a new instance of metabase application.
+version: 0
+category: Data analysis
+maintainer: Marco Vito Moscaritolo <mavimo@gmail.com>
+license: MIT
+projectURL: http://www.metabase.com/

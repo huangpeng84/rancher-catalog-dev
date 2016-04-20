@@ -1,0 +1,36 @@
+.catalog:
+  name: "InfluxDB"
+  version: "v0.1.0"
+  questions:
+    - variable: "PUBLIC_PORT_ADMIN"
+      label: "PUBLIC_PORT_ADMIN"
+      description: "PUBLIC_PORT_ADMIN"
+      type: "int"
+      default: 8083
+      required: true
+    - variable: "PUBLIC_PORT_HTTP_API"
+      label: "PUBLIC_PORT_HTTP_API"
+      description: "PUBLIC_PORT_HTTP_API"
+      type: "int"
+      default: 8086
+      required: true
+    - variable: "INFLUXDB_ADMIN_USER"
+      label: "INFLUXDB_ADMIN_USER"
+      description: "INFLUXDB_ADMIN_USER"
+      type: "string"
+      default: "admin"
+      required: true
+    - variable: "INFLUXDB_INIT_PWD"
+      label: "INFLUXDB_INIT_PWD"
+      description: "INFLUXDB_INIT_PWD"
+      type: "password"
+      default: "admin"
+      required: true
+    - variable: "INFLUXDB_PRE_CREATE_DB"
+      label: "INFLUXDB_PRE_CREATE_DB"
+      description: "INFLUXDB_PRE_CREATE_DB"
+      type: ""
+      required: false
+
+influxdb:
+  scale: 1

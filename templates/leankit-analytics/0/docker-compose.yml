@@ -1,0 +1,19 @@
+leankit-analytics:
+  image: rancher/load-balancer-service
+  ports:
+    - 8300:8300/tcp
+  stdin_open: true
+  tty: true
+  links:
+    - leankit-analytics:leankit-analytics
+
+leankit-analytics-app:
+  image: leankit/leankit.analytics:latest
+  expose:
+    - 8038/tcp
+  stdin_open: true
+  tty: true
+  environment:
+    LK_RANCHER_SERVICE_DISCOVERY: 'true'
+  labels:
+    io.rancher.container.pull_image: always

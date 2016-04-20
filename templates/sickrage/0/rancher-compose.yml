@@ -1,0 +1,10 @@
+.catalog:
+  name: "sickrage"
+  version: "1.0"
+  description: "Sickrage"
+  uuid: sickrage-0
+app:
+  scale: 1
+data:
+  scale: 1
+  tty: true

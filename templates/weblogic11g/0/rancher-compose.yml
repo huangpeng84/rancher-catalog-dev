@@ -1,0 +1,54 @@
+.catalog:
+  name: "WebLogic11g"
+  version: "2.6"
+  description: "Oracle WebLogic 11g with your application deployed"
+  minimum_rancher_version: v0.46.0
+  questions:
+    - variable: application_name
+      description: "Name of Your Application,name it as a variable, no space is allowed"
+      label: "Application Name"
+      type: "string"
+      required: true
+      default: "sampleapp"
+    - variable: artifact_url
+      description: "URL of your application war/ear artifact"
+      label: "Artifact URL"
+      type: "string"
+      required: true
+      default: "http://tomcat.apache.org/tomcat-5.5-doc/appdev/sample/sample.war"
+    - variable: datasource_name
+      description: "Name of Your Oracle DataSource, name it as a variable, no space is allowed. Oracle Database only!"
+      label: "DataSource Name"
+      type: "string"
+      required: false
+    - variable: database_host
+      description: "Your database host and instance, in the format of 'oracle.abc.com:1521:db'"
+      label: "Database Host"
+      type: "string"
+      required: false
+    - variable: database_username
+      description: "Your database username"
+      label: "Database Username"
+      type: "string"
+      required: false
+    - variable: database_password
+      description: "Your database password"
+      label: "Database password"
+      type: "string"
+      required: false
+wlslb:
+  scale: 1
+  load_balancer_config:
+    lb_cookie_stickiness_policy:
+      cookie: wlscookie
+      domain: ''
+      mode: insert
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+wlssvc:
+  scale: 2

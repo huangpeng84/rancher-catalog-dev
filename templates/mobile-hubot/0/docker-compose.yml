@@ -1,0 +1,28 @@
+mobot-server:
+  image: leankit/mobile-hubot:BanditSoftware_mobile-hubot_feature-dockerize_0.2.4_29_dd039ff5
+  ports:
+    - 8080:8810
+  volumes_from:
+    - mobot-data-volume
+  environment:
+    PORT: "8080"
+    GITHUB_API_TOKEN: "${github_api_key}"
+    MOBILE_REPO_URL: "git@github.com:BanditSoftware/${mobile_repo_name}.git"
+    MOBILE_REPO_PATH: "/var/data/${mobile_repo_name}"
+    HUBOT_SLACK_TOKEN: ${slack_token}
+    HUBOT_AUTH_ADMIN: "U03GRR9FD,U0HLJTG91"
+    HUBOT_ROOMS: ${slack_rooms}
+    HUBOT_LOG_LEVEL: ${logging_level}
+  command: "bin/hubot -a slack"
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.sidekicks: mobot-data-volume
+
+mobot-data-volume:
+  image: bunk/mobot-data
+  net: none
+  labels:
+    io.rancher.container.start_once: 'true'
+  volumes:
+    - /root/.ssh
+    - /var/data

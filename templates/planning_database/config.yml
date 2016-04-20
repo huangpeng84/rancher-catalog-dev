@@ -1,0 +1,5 @@
+name: "Planning + Database"
+description: |
+  Stack que utiliza um banco de dados local Oracle.
+version: latest
+category: Application

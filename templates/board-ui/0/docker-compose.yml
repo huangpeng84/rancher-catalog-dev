@@ -1,0 +1,19 @@
+board-ui:
+  image: rancher/load-balancer-service
+  ports:
+    - 8200:8200/tcp
+  stdin_open: true
+  tty: true
+  links:
+    - board-ui-app:board-ui-app
+
+board-ui-app:
+  image: leankit/board.ui:BanditSoftware_board.ui_develop_3.1.0_1_41629860
+  expose:
+    - 8028/tcp
+  stdin_open: true
+  tty: true
+  environment:
+    LK_RANCHER_SERVICE_DISCOVERY: 'true'
+  labels:
+    io.rancher.container.pull_image: always

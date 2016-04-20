@@ -1,0 +1,4 @@
+name: Mailserver
+description: Mailserver based on Postfix 3, Amavisd-NG
+version: 3.1.0
+category: Mail

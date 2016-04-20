@@ -1,0 +1,40 @@
+.catalog:
+  name: cowpoke
+  version: 0.0.0-1
+  description: Drone CI
+  uuid: cowpoke-0.0.0-1
+  questions:
+    - variable: slack_token
+      label: Slack Token
+      type: password
+      required: true
+    - variable: cert_name
+      label: SSL Cert Name
+      description: |
+        SSL Cert Regestered in Rancher
+        Infrastructure -> Certificates -> Add Certificate
+      type: string
+      default: "*.leankit.io"
+      required: true
+
+cowpoke-server:
+  scale: 1
+  health_check:
+    port: 8800
+    interval: 10000
+    unhealthy_threshold: 2
+    request_line: GET /api/environment HTTP/1.1
+    healthy_threshold: 2
+    response_timeout: 2000
+
+# cowpoke:
+#   scale: 1
+#   load_balancer_config:
+#     haproxy_config: {}
+#   default_cert: "${cert_name}"
+#   health_check:
+#     port: 42
+#     interval: 10000
+#     unhealthy_threshold: 3
+#     healthy_threshold: 2
+#     response_timeout: 10000

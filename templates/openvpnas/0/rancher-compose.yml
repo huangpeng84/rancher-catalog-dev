@@ -1,0 +1,10 @@
+.catalog:
+  name: "openvpnas"
+  version: "1.0"
+  description: "OpenVPN Access Server"
+  uuid: openvpnas-0
+app:
+  scale: 1
+data:
+  scale: 1
+  tty: true

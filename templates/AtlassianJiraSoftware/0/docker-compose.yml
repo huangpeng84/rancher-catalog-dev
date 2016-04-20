@@ -1,0 +1,9 @@
+JIRA-Software:
+  hostname: jira-software
+  image: steigr/jira-software:7.1.2
+  volumes:
+  - /data/Atlassian/JiraSoftware/volumes/var/atlassian/jira:/var/atlassian/jira
+  environment:
+    JAVA_OPTS: -Djava.awt.headless=true -Xms1024m -Xmx2048m
+  expose:
+  - "80"

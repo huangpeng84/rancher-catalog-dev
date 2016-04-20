@@ -1,0 +1,23 @@
+.catalog:
+  name: GitLab
+  version: latest
+  uuid: gitlab-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: GITLAB_SSH_PORT
+    description: 'SSH port'
+    label: 'Port:'
+    required: true
+    default: 10022
+    type: int
+  - variable: GITLAB_DIR
+    description: 'Data & configuration directory'
+    label: 'Directory:'
+    required: true
+    default: /var/gitlab
+    type: string

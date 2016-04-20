@@ -1,0 +1,5 @@
+name: Magento Simple
+description: |
+  Simple Magento config which includes Redis + MySQL + Nginx + Php-Fpm
+version: 0.0.1-rancher1
+category: E-commerce

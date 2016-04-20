@@ -1,0 +1,29 @@
+app:
+  restart: always
+  image: mediadepot/deluge:master
+  ports:
+   - "8081"
+   - "6881-6891"
+  volumes_from:
+  - data
+  volumes:
+  - /mnt/samba/processing:/mnt/processing
+  - /mnt/samba/downloads:/mnt/downloads
+  - /mnt/samba/blackhole:/mnt/blackhole
+  labels:
+    io.rancher.sidekicks: data
+    depot.lb.link: true
+    depot.lb.port: 8081
+    depot.app.type: deluge
+  environment:
+    DEPOT_USER: ${DEPOT_USER}
+    DEPOT_PASSWORD: ${DEPOT_PASSWORD}
+    DELUGE_PASSWORD_SALT: 12345
+    PUSHOVER_USER_KEY:
+data:
+  image: tianon/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - /srv/deluge/config
+  - /srv/deluge/data

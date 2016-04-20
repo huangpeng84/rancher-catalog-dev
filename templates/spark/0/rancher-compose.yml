@@ -1,0 +1,49 @@
+.catalog:
+  name: spark
+  version: 1.5.2-rancher1
+  description: |
+    (Experimental) Apache Spark cluster.
+  minimum_rancher_version: v0.56.0
+  maintainer: "Rancher"
+  uuid: spark-0
+  questions:
+    - variable: "spark_master_scale"
+      description: "Number of spark master nodes. Note: Recommended an odd number"
+      label: "Spark Master Nodes:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "spark_slave_scale"
+      description: "Number of spark slave nodes"
+      label: "Spark Slave Nodes:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "host_label"
+      description: "Hosts with label to deploy the spark cluster"
+      label: "Host label:"
+      required: true
+      default: "stack=devops"
+      type: "string"
+    - variable: "zk_link"
+      description: |
+        Choose the Zookeeper service to use.
+        It's really recommended a dedicated zookeeper service just for Spark.
+      label: "Zookeeper stack/service"
+      default: "kafka-zk/zk"
+      required: true
+      type: "service"
+spark-master:
+  scale: ${spark_master_scale}
+  metadata:
+    spark-env: |
+      SPARK_DAEMON_JAVA_OPTS="$${JAVA_OPTS} \
+      -Dspark.deploy.recoveryMode=ZOOKEEPER \
+      -Dspark.deploy.zookeeper.url=$${ZK_STRING} \
+      -Dspark.deploy.zookeeper.dir=/spark/work"
+spark-worker:
+  scale: ${spark_slave_scale}
+  metadata:
+    spark-env: |
+      export SPARK_WORKER_DIR=/spark/work
+      export SPARK_LOCAL_DIRS=/spark/work

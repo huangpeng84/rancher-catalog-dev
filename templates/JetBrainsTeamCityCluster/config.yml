@@ -1,0 +1,4 @@
+name: JetBrains TeamCity Server and Agents
+description: JetBrains TeamCity contineous integration server and agents
+version: 9.1.6
+category: Continuous Integration

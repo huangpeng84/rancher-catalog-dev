@@ -1,0 +1,18 @@
+.catalog:
+  name: Selenium
+  description: Selenium
+  version: latest
+  uuid: selenium-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: SELENIUM_PORT
+    description: 'Selenium port'
+    label: 'Port:'
+    required: true
+    default: 4444
+    type: int

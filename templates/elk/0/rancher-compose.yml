@@ -1,0 +1,13 @@
+.catalog:
+  name: "ELK Stack"
+  version: "1.0"
+  description: "ELK Stack"
+  uuid: elk-stack-0sdaf7g6-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: "vhost"
+      description: "Virtual Host"
+      label: "Virtual Host:"
+      required: true
+      default: "logs.docker1.brandung.dev"
+      type: "string"

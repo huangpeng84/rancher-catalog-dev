@@ -1,0 +1,8 @@
+name: InfluxDB
+description: |
+  Create a new instance of InfluxDB.
+version: 0
+category: Monitoring
+maintainer: Marco Vito Moscaritolo <mavimo@gmail.com>
+license: MIT
+projectURL: https://docs.influxdata.com/influxdb/

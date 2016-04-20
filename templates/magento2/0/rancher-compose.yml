@@ -1,0 +1,25 @@
+.catalog:
+  name: "Magento2"
+  version: "2.0.4"
+  description: "Magento2"
+  uuid: magento2-0sdaf7g6-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: "vhost"
+      description: "Virtual Host"
+      label: "Virtual Host:"
+      required: true
+      default: "developer-customer.docker1.brandung.dev"
+      type: "string"
+    - variable: "user"
+      description: "User"
+      label: "User:"
+      required: true
+      default: "brandung"
+      type: "string"
+    - variable: "Password"
+      description: "Password"
+      label: "Password:"
+      required: true
+      default: "password123"
+      type: "password"

@@ -1,0 +1,92 @@
+.catalog:
+  name: Discourse
+  version: 1.6.0
+  description: Messageboard
+  uuid: discourse-discourse-0
+  questions: 
+  - variable: "ORGANIZATION"
+    label: "Orrganization"
+    description: "Name your organization"
+    default: ACME Inc.
+    required: true
+    type: "string"
+  - variable: "DISCOURSE_DEVELOPER_EMAILS"
+    label: "Setup User eMail"
+    description: "Name your organization"
+    default: postmaster@example.com
+    required: true
+    type: "string"
+  - variable: "DISCOURSE_DB_PASSWORD"
+    label: "Password of Discource PostgreSQL User"
+    description: "Password of Discource PostgreSQL User"
+    required: true
+    type: "password"
+  - variable: "DISCOURSE_SMARTHOST_NAME"
+    label: "Outgoing Mailserver"
+    required: true
+    type: "string"
+  - variable: "DISCOURSE_SMARTHOST_SECURE"
+    label: "Use SSL/TLS when connecting to Smarthost"
+    required: true
+    type: "boolean"
+    default: true
+  - variable: "DISCOURSE_SMARTHOST_AUTH"
+    label: "Authenticate with Mailserver"
+    required: true
+    type: "boolean"
+    default: false
+  - variable: "DISCOURSE_SMARTHOST_USERNAME"
+    label: "Mailserver Username"
+    type: "string"
+  - variable: "DISCOURSE_SMARTHOST_PASSWORD"
+    label: "Mailserver Password"
+    type: "password"
+
+Redis:
+  scale: 1
+  health_check:
+    port: 6379
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    healthy_threshold: 2
+    response_timeout: 2000
+
+Discourse:
+  scale: 1
+  health_check:
+    port: 3000
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 600000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    request_line: GET "/" "HTTP/1.0"
+    healthy_threshold: 2  
+    response_timeout: 2000
+
+PostgresSQL:
+  scale: 1
+  health_check:
+    port: 5432
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    healthy_threshold: 2
+    response_timeout: 2000
+
+Mailserver:
+  scale: 1
+  metadata:
+    org.discourse.smarthost.name: ${DISCOURSE_SMARTHOST_NAME}
+    org.discourse.smarthost.secure: ${DISCOURSE_SMARTHOST_SECURE}
+    org.discourse.smarthost.auth: ${DISCOURSE_SMARTHOST_AUTH}
+    org.discourse.smarthost.username: ${DISCOURSE_SMARTHOST_USERNAME}
+    org.discourse.smarthost.password: ${DISCOURSE_SMARTHOST_PASSWORD}

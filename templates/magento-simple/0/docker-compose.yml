@@ -1,0 +1,44 @@
+nginx:
+  image: jemoon/nginx-php:1.0
+  container_name: nginx-php
+  ports:
+    - "80:8081"
+    - "443:443"
+  volumes_from:
+    - data
+  links:
+    - "cache:rediscache"
+    - "sessions:redissession"
+    - "fpc:redisfpc"
+    - "mysql:mysql"
+  labels:
+    io.rancher.sidekicks: data
+data:
+  image: tianon/true
+  container_name: data
+  volumes:
+    - ${APP_LOCATION}:${APP_LOCATION}
+  labels:
+    io.rancher.container.start_once: true
+mysql:
+  image: percona:5.6
+  container_name: percona
+  volumes:
+    - ${MYSQL_LOCATION}:/var/lib/mysql
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin:latest
+  ports:
+  - 8082:80/tcp
+  tty: true
+  links:
+  - mysql:db
+  stdin_open: true
+cache:
+  image: redis:latest
+  container_name: redis-cache
+fpc:
+  image: redis:latest
+  container_name: redis-fpc
+sessions:
+  image: redis:latest
+  container_name: redis-sessions

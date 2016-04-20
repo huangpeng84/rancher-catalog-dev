@@ -1,0 +1,19 @@
+leankit-tableau:
+  image: rancher/load-balancer-service
+  ports:
+    - 8400:8400/tcp
+  stdin_open: true
+  tty: true
+  links:
+    - leankit-tableau-app:leankit-tableau-app
+
+leankit-tableau-app:
+  image: leankit/leankit.tableau
+  expose:
+    - 8048/tcp
+  stdin_open: true
+  tty: true
+  environment:
+    LK_RANCHER_SERVICE_DISCOVERY: 'true'
+  labels:
+    io.rancher.container.pull_image: always

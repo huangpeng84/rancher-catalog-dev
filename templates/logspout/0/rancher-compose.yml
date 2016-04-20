@@ -1,0 +1,12 @@
+.catalog:
+    name: "CNTV-Logspout"
+    version: "v2"
+    description: "Convoy GlusterFS - Docker volume plugin"
+    uuid: "logspout-0"
+    questions:
+     - variable: "SYSLOG"
+       description: "Command of syslog address"
+       label: "syslog"
+       required: true
+       type: "string"
+       default: 10.64.1.223:5000

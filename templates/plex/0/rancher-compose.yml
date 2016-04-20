@@ -1,0 +1,10 @@
+.catalog:
+  name: "plex"
+  version: "1.0"
+  description: "Plex Media Server"
+  uuid: plex-0
+app:
+  scale: 1
+data:
+  scale: 1
+  tty: true

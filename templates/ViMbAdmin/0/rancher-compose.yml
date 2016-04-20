@@ -1,0 +1,163 @@
+.catalog:
+  name: ViMbAdmin
+  description: ViMbAdmin Mailbox Administration Webapp
+  version: 3.0.15
+  uuid: opensolutions-vimbadmin-0
+  questions: 
+  - variable: "DATABASE_CONTAINER_NAME"
+    label: "Database Server Container"
+    description: "Database Server Container"
+    required: true
+    type: "service"
+  - variable: "DOCTRINE_HOST"
+    label: "Database Server or IP"
+    description: "Database Server or IP"
+    type: "string"
+    default: database
+  - variable: "DOCTRINE_DRIVER"
+    label: "Database driver"
+    description: "Database driver"
+    default: pdo_mysql
+    required: true
+    type: "enum"
+    options:
+    - pdo_mysql
+    - pdo_sqlite
+    - pdo_pgsql
+    - pdo_oci
+    - oci8
+    - ibm_db2
+    - pdo_sqlsrv
+    - mysqli
+    - drizzle_pdo_mysql
+    - sqlanywhere
+    - sqlsrv
+  - variable: "DOCTRINE_DBNAME"
+    label: "Database name"
+    description: "Database name"
+    default: vimbadmin
+    type: "string"
+  - variable: "DOCTRINE_USER"
+    label: "Database username"
+    description: "Database username"
+    default: vimbadmin
+    type: "string"
+  - variable: "DOCTRINE_PASSWORD"
+    label: "Database password"
+    description: "Database password"
+    type: "password"
+  - variable: "VIMBADMIN_PATH"
+    label: "Path"
+    description: "Path of ViMbAdmin Application"
+    type: "string"
+    default: /
+  - variable: "ADMIN_EMAIL"
+    label: "eMail"
+    description: "Mail Administrator eMail Address"
+    type: "string"
+    default: admin@example.com
+    required: true
+  - variable: "ADMIN_PASSWORD"
+    label: "Password"
+    description: "Mail Administrator password"
+    type: "password"
+    default: vimbadmin
+    required: true
+  - variable: "SERVER_NAME"
+    label: "Server Base URL"
+    description: "Base-URL of ViMbAdmin Application, prepend https:// if app should run secured"
+    type: "string"
+    default: http://vimbadmin.example.com
+    required: true
+  - variable: "MAIL_LOCATION"
+    label: "Mailbox Location"
+    type: "string"
+    default: maildir:/srv/vmail/%d/%u/mail:LAYOUT=fs
+    required: true
+  - variable: "MAILBOX_UID"
+    label: "Mailbox Owner UID"
+    type: "int"
+    default: 2000
+    required: true
+  - variable: "MAILBOX_GID"
+    label: "Mailbox Owner GID"
+    type: "int"
+    default: 2000
+    required: true
+  - variable: "PASSWORD_SCHEME"
+    label: "Password Crypt Scheme"
+    type: "enum"
+    default: "dovecot:BLF-CRYPT"
+    options:
+    - dovecot:MD5
+    - dovecot:MD5-CRYPT
+    - dovecot:SHA
+    - dovecot:SHA1
+    - dovecot:SHA256
+    - dovecot:SHA512
+    - dovecot:SMD5
+    - dovecot:SSHA
+    - dovecot:SSHA256
+    - dovecot:SSHA512
+    - dovecot:PLAIN
+    - dovecot:CLEAR
+    - dovecot:CLEARTEXT
+    - dovecot:PLAIN-TRUNC
+    - dovecot:CRAM-MD5
+    - dovecot:SCRAM-SHA-1
+    - dovecot:HMAC-MD5
+    - dovecot:DIGEST-MD5
+    - dovecot:PLAIN-MD4
+    - dovecot:PLAIN-MD5
+    - dovecot:LDAP-MD5
+    - dovecot:LANMAN
+    - dovecot:NTLM
+    - dovecot:OTP
+    - dovecot:SKEY
+    - dovecot:RPA
+    - dovecot:CRYPT
+    - dovecot:BLF-CRYPT
+    - dovecot:SHA512-CRYPT
+    - dovecot:SHA256-CRYPT
+    - plain
+    - md5
+    - md5.salted
+    - crypt
+    - md5.crypt
+    - sha1
+    - sha1.salted
+ViMbAdmin:
+  scale: 1
+  health_check:
+    port: 80
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    response_timeout: 2000
+    request_line: GET "${VIMBADMIN_PATH}" "HTTP/1.0"
+    healthy_threshold: 2
+  metadata:
+    doctrine.driver: ${DOCTRINE_DRIVER}
+    doctrine.dbname: ${DOCTRINE_DBNAME}
+    doctrine.user: ${DOCTRINE_USER}
+    doctrine.password: ${DOCTRINE_PASSWORD}
+    doctrine.host: ${DOCTRINE_HOST}
+    vimbadmin.path: ${VIMBADMIN_PATH}
+    admin.email: ${ADMIN_EMAIL}
+    admin.password: ${ADMIN_PASSWORD}
+    server.name: ${SERVER_NAME}
+    mail.location: ${MAIL_LOCATION}
+    password.scheme: ${PASSWORD_SCHEME}
+Mailserver:
+  scale: 1
+  health_check:
+    port: 25
+    interval: 2000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000

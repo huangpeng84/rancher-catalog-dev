@@ -1,0 +1,16 @@
+.catalog:
+  name: MySQL
+  version: latest
+  uuid: mysql-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: MYSQL_SERVICE
+    description: 'MySQL Database to administrate'
+    label: 'MySQL service:'
+    required: true
+    type: service

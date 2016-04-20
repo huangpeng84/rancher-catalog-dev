@@ -1,0 +1,32 @@
+cowpoke-server:
+  labels:
+    io.rancher.container.pull_image: always
+  image: leankit/cowpoke
+  ports:
+    - 8000:8800
+  volumes_from:
+    - cowpoke-data-volume
+  environment:
+    HOST_PORT: "8800"
+    SLACK_TOKEN: "${slack_token}"
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.sidekicks: cowpoke-data-volume
+
+cowpoke-data-volume:
+  image: busybox
+  net: none
+  command: /bin/true
+  labels:
+    io.rancher.container.start_once: 'true'
+  volumes:
+    - /app/data
+
+# cowpoke:
+#   ports:
+#   - 8000:8800
+#   labels:
+#     io.rancher.loadbalancer.ssl.ports: '8000'
+#   image: rancher/load-balancer-service
+#   links:
+#   - cowpoke-server:cowpoke-server

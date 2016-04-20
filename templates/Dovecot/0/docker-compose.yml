@@ -1,0 +1,4 @@
+Server:
+  image: steigr/dovecot:2.2.23
+  external_links:
+  - ${DATABASE_CONTAINER}:${DATABASE_HOST}

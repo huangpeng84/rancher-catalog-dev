@@ -1,0 +1,26 @@
+.catalog:
+  name: URLWatcher
+  version: 1
+  description: Get notified if a particular url changes
+  uuid: urlwatcher-watcher-0
+  questions:
+  - variable: "WATCH_URL"
+    label: "Watched URL"
+    description: "If this url changes ..."
+    default: http://google.com
+    required: true
+    type: "string"
+  - variable: "NOTIFY_URL"
+    label: "Notified URL"
+    description: "... then request this URL"
+    default: http://example.com
+    required: true
+    type: "string"
+  - variable: "CURL_ARGS"
+    label: "cURL Arguments"
+    description: "Additional cURL arguments like -X POST"
+    required: false
+    type: "string"
+
+Watcher:
+  scale: 1

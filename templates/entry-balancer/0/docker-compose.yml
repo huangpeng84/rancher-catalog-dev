@@ -1,0 +1,10 @@
+entry-balancer:
+  ports:
+    - "${incoming_port}:${balance_port}/tcp"
+  image: rancher/load-balancer-service
+  links:
+    - "${target_service_red}:red"
+    - "${target_service_green}:green"
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${entry_label}=true
+    io.rancher.scheduler.global: 'true'

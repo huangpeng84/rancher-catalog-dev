@@ -1,0 +1,22 @@
+.catalog:
+  name: JetBrains TeamCity Server and Agents
+  version: 9.1.6
+  description: JetBrains TeamCity contineous integration server and agents
+  uuid: jetbrains-teamcitycluster-1
+
+TeamCity:
+  scale: 1
+  health_check:
+    port: 8080
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    request_line: GET "/favicon.ico" "HTTP/1.0"
+    healthy_threshold: 2
+    response_timeout: 2000
+
+TeamCity-Agent:
+  scale: 3

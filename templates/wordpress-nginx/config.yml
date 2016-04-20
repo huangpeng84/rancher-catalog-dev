@@ -1,0 +1,5 @@
+name: Wordpress Nginx
+description: |
+  Wordpress with Nginx, MySQL and SSH.
+version: 3.0.0-rancher1
+category: cms

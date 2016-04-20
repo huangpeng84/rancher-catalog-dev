@@ -1,0 +1,51 @@
+elasticsearch-conf:
+  image: camptocamp/elasticsearch-conf:0.5.4
+  labels: 
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: 'true'
+#  environment:
+#    cluster_name: bqtestclustername
+  volumes_from:
+    - elasticsearch
+elasticsearch:
+  image: camptocamp/elasticsearch:5.0.0-alpha
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: elasticsearch-conf
+  volumes:
+    - /usr/share/elasticsearch/config
+    - /opt/rancher/bin
+
+# Kibana (no need for a conf as it can be configured through environment variables)
+kibana:
+  image: camptocamp/kibana:5.0.0-alpha
+  links:
+    - elasticsearch
+  environment:
+    ELASTICSEARCH_URL: http://elasticsearch:9200
+
+# nginx for basic auth
+nginx-conf:
+  image: camptocamp/elk-nginx-conf:0.0.1
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: 'true'
+  environment:
+    ELASTICSEARCH_URL: http://elasticsearch:9200
+    KIBANA_URL: http://kibana:5601
+  volumes_from: 
+    - nginx
+nginx:
+  image: nginx
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: nginx-conf
+  links:
+    - elasticsearch
+    - kibana
+  ports:
+    - "9200:9200"
+    - "5601:5601"
+  volumes:
+    - /etc/nginx
+    - /opt/rancher/bin

@@ -1,0 +1,96 @@
+.catalog:
+  name: Autoshift Devops
+  version: 0.1.0
+  description: |
+    (Experimental) Autoshift Devops Stack
+  minimum_rancher_version: v0.56.0
+  maintainer: "Autoshift team"
+  uuid: autoshift-0
+  questions:
+    - variable: "zk_scale"
+      description: "Number of zk nodes. Note: Recommended an odd number"
+      label: "Zk Nodes:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "zk_mem"
+      description: "Amount of memory to config zk."
+      label: "Zk Memory (mb):"
+      required: true
+      default: 512
+      type: "string"
+    - variable: "zk_interval"
+      description: "Interval to poll/apply configuration changes. 0 to disable, reconfiguration will be done when you restart zk nodes"
+      label: "Zk Interval (s):"
+      required: true
+      default: 60
+      type: "int"
+    - variable: "kafka_scale"
+      description: "Number of brokers nodes. Note: Recommended an odd number"
+      label: "Kafka Nodes:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "kafka_mem"
+      description: "Amount of memory to config brokers."
+      label: "Kafka Memory (mb):"
+      required: true
+      default: 1024
+      type: "string"
+    - variable: "kafka_interval"
+      description: "Interval to poll/apply configuration changes. 0 to disable"
+      label: "Kafka Interval (s):"
+      required: true
+      default: 60
+      type: "int"   
+    - variable: "influxdb_scale"
+      description: "Number of influxdb nodes. Note: Recommended an odd number"
+      label: "influxdb Nodes:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "influxdb_mem"
+      description: "Max amount of memory to allocate to influxdb"
+      label: "Influxdb Memory (bytes):"
+      required: true
+      default: 1024000000
+      type: "int"
+    - variable: "influxb_cpu"
+      description: "Cpu priotiry for influxdb"
+      label: "Influxdb Cpu priority (base is 1024):"
+      required: true
+      default: 1024
+      type: "int"
+    - variable: "host_label"
+      description: "Hosts with label to deploy the kafka cluster"
+      label: "Host label:"
+      required: true
+      default: "stack=devops"
+      type: "string"
+zk:
+  scale: ${zk_scale}
+  health_check:
+    port: 2181
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+kafka:
+  scale: ${kafka_scale}
+  health_check:
+    port: 9092
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+influxdb:
+  scale: ${influxdb_scale}
+  health_check:
+    port: 8086
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

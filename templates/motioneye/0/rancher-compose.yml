@@ -1,0 +1,12 @@
+.catalog:
+  name: "MotionEye"
+  description: "Web interface for motion software."
+  version: "0.31.3"
+  uuid: motioneye-0
+  questions:
+    - variable: "ME_NAME"
+      description: "MotionEye instance name."
+      label: "Name"
+      required: true
+      default: "MotionEye"
+      type: "string"

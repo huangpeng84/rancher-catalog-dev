@@ -1,0 +1,20 @@
+cassandra:
+  image: autoshift/cassandra:2.2
+  volumes_from:
+    - cassandra-volume
+  environment:
+    - RANCHER_ENABLE=true
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: cassandra-volume
+    io.rancher.scheduler.affinity:host_label: ${host_label}
+cassandra-volume:
+  net: none
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  volumes:
+    - /cassandra:/var/lib/cassandra
+  entrypoint: /bin/true
+  image: busybox

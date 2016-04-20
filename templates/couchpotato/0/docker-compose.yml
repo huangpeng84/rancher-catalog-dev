@@ -1,0 +1,23 @@
+app:
+  restart: always
+  image: mediadepot/couchpotato:master
+  ports:
+   - "8080"
+  volumes_from:
+  - data
+  volumes:
+  - /mnt/samba/movies:/mnt/movies
+  - /mnt/samba/downloads/[Movies]:/mnt/downloads
+  - /mnt/samba/blackhole/[Movies]:/mnt/blackhole
+  labels:
+    io.rancher.sidekicks: data
+    depot.lb.link: true
+    depot.lb.port: 8080
+    depot.app.type: couchpotato
+data:
+  image: tianon/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - /srv/couchpotato/config
+  - /srv/couchpotato/data

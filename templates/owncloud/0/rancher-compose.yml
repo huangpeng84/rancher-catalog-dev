@@ -1,0 +1,32 @@
+.catalog:
+  name: owncloud-cognotekt
+  version: "0.0.1"
+  description: |
+    Creates a global set of load balancers on hosts with a certain label which
+    balance traffic into a Rancher-internal service stack
+  uuid: owncloud-cognotekt-0
+  questions:
+
+    - variable: database_host
+      label: Database host URL
+      description: Must be URL, use "db" as database host name in owncloud
+      required: true
+      type: string
+
+owncloud:
+  scale: 1
+
+owncloud-db:
+  hostname: ${database_host}
+
+owncloud-entry:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  default_cert: com.cognotekt-services.owncloud
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

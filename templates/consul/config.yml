@@ -1,0 +1,8 @@
+ name: Consul
+ description: |
+    Creates a 3-node consul cluster for use as internal service discovery
+ version: "0.0.1"
+ category: Clustering
+ maintainer: Axel Bock <axel.bock@cognotekt.com>
+ license: MIT
+ projectURL: https://github.com/CognotektGmbH/rancher-catalog

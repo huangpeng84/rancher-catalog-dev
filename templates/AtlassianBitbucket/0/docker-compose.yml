@@ -1,0 +1,9 @@
+Bitbucket:
+  hostname: bitbucket
+  image: steigr/bitbucket:4.4.1
+  volumes:
+  - /data/Atlassian/Bitbucket/volumes/var/atlassian/bitbucket:/var/atlassian/bitbucket
+  environment:
+    JAVA_OPTS: -Djava.awt.headless=true -Xms1024m -Xmx2048m
+  expose:
+  - "80"

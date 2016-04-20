@@ -1,0 +1,17 @@
+rancher:
+  image: rancher/server:latest
+  ports:
+  - ${RANCHER_PORT}:8080/tcp
+  labels:
+    traefik.frontend.value: 'rancher.${DOMAIN}'
+    traefik.frontend.passHostHeader: 'true'
+    traefik.frontend.rule: 'Host'
+    traefik.port: '8080'
+  volumes:
+  - ${RANCHER_DIR}/mysql:/var/lib/mysql
+  - ${RANCHER_DIR}/cattle:/var/lib/cattle
+  log_opt:
+    max-size: '50m'
+  restart: 'no'
+  cpu_shares: 512
+  mem_limit: 1073741824

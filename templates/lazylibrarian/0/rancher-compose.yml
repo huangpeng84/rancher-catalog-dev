@@ -1,0 +1,9 @@
+.catalog:
+  name: "headohones"
+  version: "1.0"
+  description: "Headphones"
+  uuid: headphones-0
+app:
+  scale: 1
+data:
+  scale: 1

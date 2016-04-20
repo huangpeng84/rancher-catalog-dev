@@ -1,0 +1,6 @@
+Upsource:
+  hostname: upsource
+  image: steigr/upsource
+  volumes:
+  - /data/JetBrains/Upsource/volumes/opt/Upsource/data:/opt/Upsource/data
+  - /data/JetBrains/Upsource/volumes/opt/Upsource/backups:/opt/Upsource/backups

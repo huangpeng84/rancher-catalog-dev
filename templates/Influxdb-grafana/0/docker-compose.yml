@@ -1,0 +1,30 @@
+influxsrv:
+  image: registry.cntv.net/tutum/influxdb:0.8.8
+  name: influxsrv
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+  volumes:
+    - /data/influxdb:/data
+  expose:
+    - "8090"
+    - "8099"
+  environment:
+    - PRE_CREATE_DB=cadvisor
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
+grafana:
+  image: registry.cntv.net/grafana
+  name: grafana
+  ports:
+    - "3000:3000"
+  links:
+    - influxsrv:influxsrv
+  environment:
+    - INFLUXDB_HOST=localhost
+    - INFLUXDB_PORT=8086
+    - INFLUXDB_NAME=cadvisor
+    - INFLUXDB_USER=root
+    - INFLUXDB_PASS=root
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}

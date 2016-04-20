@@ -1,0 +1,26 @@
+.catalog:
+  name: Redis
+  version: 3.0.7-0
+  description: Redis - Dev single instance
+  uuid: redis-0
+
+redis:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 1000
+    unhealthy_threshold: 1
+    healthy_threshold: 1
+    response_timeout: 500
+
+master:
+  scale: 1
+  health_check:
+    port: 6379
+    interval: 1000
+    unhealthy_threshold: 1
+    request_line: ''
+    healthy_threshold: 1
+    response_timeout: 500

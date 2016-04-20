@@ -1,0 +1,5 @@
+name: ELK Stack
+description: |
+  ELK Stack
+version: 1.0
+category: Logging

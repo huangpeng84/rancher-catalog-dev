@@ -1,0 +1,375 @@
+Locust-Slave-01:
+
+  ports:
+      - 10011:8089
+      - 10012:5557
+      - 10013:5558
+      - 10014:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  image: legendary/locust-slaves
+  stdin_open: true
+
+
+
+Locust-Slave-02:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10021:8089
+      - 10022:5557
+      - 10023:5558
+      - 10024:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-03:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10031:8089
+      - 10032:5557
+      - 10033:5558
+      - 10034:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-04:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10041:8089
+      - 10042:5557
+      - 10043:5558
+      - 10044:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-05:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10051:8089
+      - 10052:5557
+      - 10053:5558
+      - 10054:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-06:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10061:8089
+      - 10062:5557
+      - 10063:5558
+      - 10064:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-07:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10071:8089
+      - 10072:5557
+      - 10073:5558
+      - 10074:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-08:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10081:8089
+      - 10082:5557
+      - 10083:5558
+      - 10084:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-09:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10091:8089
+      - 10092:5557
+      - 10093:5558
+      - 10094:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true
+
+
+
+
+Locust-Slave-10:
+
+  image: legendary/locust-slaves
+  ports:
+      - 10101:8089
+      - 10102:5557
+      - 10103:5558
+      - 10104:5000
+
+  external_links:
+      - locustgrafana_influxdb_1
+      - locustgrafana_statsd_1
+      - locustgrafana_grafana_1
+
+  working_dir: /src/app
+
+  environment:
+    STATSD_HOST: locustgrafana_statsd_1
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+    MASTER_HOST: 85.199.129.129
+    TARGET_URL: ${target_url}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true

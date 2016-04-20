@@ -1,0 +1,7 @@
+hotglue:
+  image: alevm/hotglue_httpd
+  ports:
+    - "80"
+  volumes:
+  - ${VOLUME_POOL}:/var/www/html/hotglue
+  volume_driver: ${VOLUME_DRIVER}

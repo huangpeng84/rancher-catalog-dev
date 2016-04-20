@@ -1,0 +1,49 @@
+.catalog:
+  name: "Metabase"
+  version: "v0.1.0"
+  questions:
+    - variable: "PUBLIC_PORT"
+      label: "PUBLIC_PORT"
+      description: "Public port used for metabase"
+      type: "int"
+      default: 3000
+      required: true
+    - variable: "MB_DB_FILE"
+      label: "MB_DB_FILE"
+      description: "Metabase DB file"
+      type: "path"
+      default: "/tmp/metabase.db"
+      required: true
+    - variable: "MB_DB_TYPE"
+      label: "MB_DB_TYPE"
+      description: "MB_DB_TYPE"
+      type: "string"
+      required: false
+    - variable: "MB_DB_DBNAME"
+      label: "MB_DB_DBNAME"
+      description: "MB_DB_DBNAME"
+      type: "string"
+      required: false
+    - variable: "MB_DB_PORT"
+      label: "MB_DB_PORT"
+      description: "MB_DB_PORT"
+      type: "int"
+      required: false
+    - variable: "MB_DB_USER"
+      label: "MB_DB_USER"
+      description: "MB_DB_USER"
+      type: "string"
+      required: false
+    - variable: "MB_DB_PASS"
+      label: "MB_DB_PASS"
+      description: "MB_DB_PASS"
+      type: "password"
+      required: false
+    - variable: "MB_DB_HOST"
+      label: "MB_DB_HOST"
+      description: "MB_DB_HOST"
+      type: "string"
+      required: false
+
+metabase:
+  scale: 1

@@ -1,0 +1,27 @@
+jenkins:
+  image: vibioh/jenkins-docker
+  labels:
+    traefik.frontend.value: 'jenkins.${DOMAIN}'
+    traefik.frontend.passHostHeader: 'true'
+    traefik.frontend.rule: 'Host'
+    traefik.port: '8080'
+    io.rancher.sidekicks: jenkins_data
+  environment:
+    HOST_WORKSPACE_PATH: '${JENKINS_DIR}/data/workspace'
+    DOCKER_HOST: '${DOCKER_HOST}'
+    DOCKER_TLS_VERIFY: '${DOCKER_TLS_VERIFY}'
+    JAVA_OPTS: '-Duser.timezone=Europe/Paris'
+  volumes_from:
+   - jenkins_data
+  log_opt:
+    max-size: '50m'
+  restart: 'no'
+  cpu_shares: 512
+  mem_limit: 8589934592
+jenkins_data:
+  image: vibioh/jenkins-data
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - ${JENKINS_DIR}/data:/var/jenkins_home
+  restart: 'no'

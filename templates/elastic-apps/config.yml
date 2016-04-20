@@ -1,0 +1,4 @@
+name: "Elasticapps"
+description: "EEA Elasticsearch applications"
+version: "1.0-rancher1"
+category: "Search services"

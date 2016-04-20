@@ -1,0 +1,4 @@
+name: Utility
+description: Utility stack for depot. Contains load balancer and agent which will automatically update loadbalancer with new subdomains. Contains an updater utility which checks container versions and pulls them into the depot.
+category: Utility
+version: 1.0

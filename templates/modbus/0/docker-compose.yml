@@ -1,0 +1,20 @@
+pdu:
+  image: docker-registry.crt.nersc.gov:5000/pulsar_worker_1
+  command: -q modbus
+  labels:
+    io.rancher.scheduler.affinity:host_label: net.modbus=true
+ion:
+  image: docker-registry.crt.nersc.gov:5000/pulsar_worker_1
+  command: -q ion
+  labels:
+    io.rancher.scheduler.affinity:host_label: net.substation=true
+ups:
+  image: docker-registry.crt.nersc.gov:5000/pulsar_worker_1
+  command: -q ups
+  labels:
+    io.rancher.scheduler.affinity:host_label: net.ups=true
+master:
+  image: docker-registry.crt.nersc.gov:5000/pulsar_worker_1
+  container_name: modbus_master
+  entrypoint: python
+  command: "./pulsar/scripts/pulsar_job_producer.py"

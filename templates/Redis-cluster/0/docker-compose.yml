@@ -1,0 +1,36 @@
+master-config:
+  image: 10.40.31.143:5000/kiemsi/redis-replicas
+  command: master-config
+  labels:
+    io.rancher.container.start_once: true
+    io.rancher.container.pull_image: always
+master:
+  restart: always
+  image: 10.40.31.143:5000/kiemsi/redis-replicas
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: master-config
+    io.rancher.container.pull_image: always
+  command: master
+  volumes_from:
+  - master-config
+
+
+slave-config:
+  image: 10.40.31.143:5000/kiemsi/redis-replicas
+  command: slave-config
+  labels:
+    io.rancher.container.start_once: true
+    io.rancher.container.pull_image: always
+  environment:
+    SLAVE_WRITEABLE: ${slave_can_write}
+slave:
+  restart: always
+  image: 10.40.31.143:5000/kiemsi/redis-replicas
+  command: slave
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: slave-config
+    io.rancher.container.pull_image: always
+  volumes_from:
+  - slave-config

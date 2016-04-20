@@ -1,0 +1,10 @@
+zk:
+  tty: true
+  image: rawmind/rancher-zk:3.4.6-1
+  volumes:
+  - /opt/zk/data
+  environment:
+  - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
+  - CONFD_INTERVAL=${zk_interval}
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${host_label}  

@@ -1,0 +1,116 @@
+.catalog:
+  name: cvs-service
+  version: "0.5.0"
+  description: |
+    Creates a CVS-RSAS combination with two loadbalancing layers. The outer
+    loadbalancer *needs* a host label of "webtraffic=true"
+  uuid: cvs-service-5
+  questions:
+
+    - variable: rsas_image
+      label: RSAS container
+      description: Base container image tag for RSAS
+      default: hub.cognotekt.int:5000/production/rsas:latest
+      required: true
+      type: string
+
+    - variable: cvs_image
+      label: CVS container
+      description: Base container image for CVS
+      default: hub.cognotekt.int:5000/production/production:latest
+      required: true
+      type: string
+
+    - variable: rsas_client_image
+      label: RSAS client container
+      default: hub.cognotekt.int:5000/production/rsas-client:latest
+      required: true
+      type: string
+
+    - variable: cvs_config_image
+      label: CVS configuration container
+      description: Select CVS configuration
+      default: hub.cognotekt.int:5000/production/config:latest
+      required: true
+      type: string
+
+    - variable: service_id
+      label: Service ID
+      description: Unique ID for all services for one customer
+      type: string
+      required: true
+
+    - variable: rsasscale
+      label: RSAS initial scale
+      description: Deploy how many RSAS containers initially
+      default: 1
+      required: true
+      type: int
+
+    - variable: rsas_client_proxy_fix
+      label: Number of proxies in front of RSAS client
+      default: 1
+      required: true
+      type: int
+
+    - variable: cvsscale
+      label: CVS initial scale
+      description: Deploy how many CVS containers initially
+      default: 2
+      required: true
+      type: int
+
+    - variable: entry_port
+      label: Entrypoint port
+      description: Which port to use for the entry point
+      default: 21194
+      required: true
+      type: int
+
+    - variable: metric_labels
+      label: Metric labels
+      description: Additional labels for metrics, format "A=B,C=D", no spaces
+      type: string
+      required: false
+      default: ""
+
+cvs:
+  scale: ${cvsscale}
+  health_check:
+    port: 8090
+    interval: 2000
+    unhealthy_threshold: 2
+    request_line: GET /health HTTP/1.0
+    healthy_threshold: 3
+    response_timeout: 1000
+
+rsas:
+  scale: ${rsasscale}
+  health_check:
+    port: 1194
+    interval: 2000
+    unhealthy_threshold: 2
+    request_line: GET /health HTTP/1.0
+    healthy_threshold: 3
+    response_timeout: 1000
+
+cvs-balancer:
+  scale: 2
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+
+entry:
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

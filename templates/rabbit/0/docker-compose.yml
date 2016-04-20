@@ -1,0 +1,23 @@
+rabbit:
+  image: leankit/rabbitmq:3.6.0-5
+  ports:
+    - 5672:5672/tcp
+    - 15672:15672/tcp
+    - 25672:25672/tcp
+  volumes:
+    - rabbit:/var/lib/rabbitmq
+  volume_driver: convoy-gluster
+  environment:
+    LK_RANCHER_SERVICE_DISCOVERY: true
+    RABBITMQ_DEFAULT_USER: "${username}"
+    RABBITMQ_DEFAULT_PASS: "${password}"
+    RABBITMQ_DEFAULT_VHOST: "/${username}"
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.pull_image: always
+    io.leankit.service.username: "${username}"
+    io.leankit.service.password: "${password}"
+    io.leankit.service.vhost: "%2f${username}"
+    io.leankit.service.port.amqp: 5672/tcp
+    io.leankit.service.port.api: 15672/tcp
+    io.leankit.service.port.cluster: 25672/tcp

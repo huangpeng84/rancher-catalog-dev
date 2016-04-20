@@ -1,0 +1,11 @@
+.catalog:
+  name: "Planning + Database"
+  version: "latest"
+  description: "Planning"
+  minimum_rancher_version: v0.46.0
+database:
+  scale: 1
+algorithm:
+  scale: 1
+web:
+  scale: 1

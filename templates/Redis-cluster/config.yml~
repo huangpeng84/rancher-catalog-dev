@@ -1,0 +1,5 @@
+name: Redis
+description: |
+  Redis cluster
+version: v1
+category: Cluster

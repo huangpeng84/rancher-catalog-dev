@@ -1,0 +1,15 @@
+tvtime-dongsi:
+  labels:
+    io.rancher.container.pull_image: always
+  image: registry.cntv.net/xinming/tvtime-php:v0.83
+  stdin_open: true
+slbtime:
+  ports:
+  - 80:80
+  labels:
+    io.rancher.scheduler.global: 'true'
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - tvtime-dongsi:tvtime-dongsi
+  stdin_open: true

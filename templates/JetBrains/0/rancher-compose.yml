@@ -1,0 +1,82 @@
+.catalog:
+  name: "JetBrains Full Team Stack"
+  version: "1"
+  description: "JetBrains Team Apps: Hub, YouTrack, Upsource, and TeamCity with agents"
+  uuid: jetbrains-stack-1
+  questions: 
+  - variable: "DOMAIN"
+    label: "DOMAIN"
+    description: "Domain name for all apps. After successful startup reach them under hub.$DOMAIN youtrack.$DOMAIN upsource.$DOMAIN teamcity.$DOMAIN"
+    default: example.com
+    required: true
+    type: "string"
+
+Hub:
+  scale: 1
+  health_check:
+    port: 8080
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    response_timeout: 2000
+    request_line: GET "/" "HTTP/1.0"
+    healthy_threshold: 2
+
+Upsource:
+  scale: 1
+  health_check:
+    port: 8080
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    response_timeout: 2000
+    request_line: GET "/" "HTTP/1.0"
+    healthy_threshold: 2
+
+YouTrack:
+  scale: 1
+  health_check:
+    port: 8080
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    response_timeout: 2000
+    request_line: GET "/" "HTTP/1.0"
+    healthy_threshold: 2
+
+TeamCity:
+  scale: 1
+  health_check:
+    port: 8080
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    request_line: GET "/favicon.ico" "HTTP/1.0"
+    healthy_threshold: 2
+    response_timeout: 2000
+
+TeamCity-Agent:
+  scale: 3
+
+HTTP-Router:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

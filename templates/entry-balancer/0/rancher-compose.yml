@@ -1,0 +1,53 @@
+.catalog:
+  name: entry-balancer
+  version: "0.0.1"
+  description: |
+    Creates a global set of load balancers on hosts with a certain label which
+    balance traffic into a Rancher-internal service stack
+  uuid: entry-balancer-0
+  questions:
+
+    - variable: incoming_port
+      label: Rancher host port
+      description: This port is opened on the Rancher host for incoming traffic
+      default: 8080
+      required: true
+      type: int
+
+    - variable: balance_port
+      label: Internal target port
+      description: Balance on this port on the target service
+      default: 8080
+      required: true
+      type: int
+
+    - variable: target_service_red
+      label: Red service
+      description: '"Red" target service'
+      required: true
+      type: service
+
+    - variable: target_service_green
+      label: Green service
+      description: '"Green" target service'
+      required: true
+      type: service
+
+    - variable: entry_label
+      label: Host label (hard requirement) on which to place balancers
+      description: |
+        Balancers are only spawned on Rancher hosts which have set LABEL=true
+      default: webtraffic
+      required: true
+      type: string
+
+entry-balancer:
+  scale: 2
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

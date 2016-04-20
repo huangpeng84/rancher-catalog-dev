@@ -1,0 +1,5 @@
+name: ETCD
+description: |
+  Etcd cluster
+version: v1
+category: Cluster

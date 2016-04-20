@@ -1,0 +1,39 @@
+memcache:
+  log_driver: ''
+  tty: true
+  log_opt: {}
+  image: memcached:1.4
+  stdin_open: true
+console:
+  ports:
+  - 80:8080/tcp
+  environment:
+    DB_IP_ADDRESS: database.uc6.rancher.internal
+    MEMCACHE_IP_ADDRESS: memcache.uc6.rancher.internal
+    CONSOLE_IP_ADDRESS: console.uc6.rancher.internal
+    API_IP_ADDRESS: console.uc6.rancher.internal
+  log_driver: ''
+  tty: true
+  log_opt: {}
+  image: console_api:1.4
+  stdin_open: true
+redis:
+  log_driver: ''
+  tty: true
+  log_opt: {}
+  image: redis:3.0-alpine
+  stdin_open: true
+mongodb:
+  log_driver: ''
+  tty: true
+  log_opt: {}
+  image: mongo:3.2
+  stdin_open: true
+database:
+  ports:
+  - 5432:5432/tcp
+  log_driver: ''
+  tty: true
+  log_opt: {}
+  image: postgres:9.2
+  stdin_open: true

@@ -1,0 +1,17 @@
+centos7mini:
+  image: sculang/centos7_mini:latest
+  environment:
+    - JON_SERVER_FQDN=xsnl10w900s.pharma.aventis.com
+  command: tail -f /dev/null
+  ports:
+    - "16163"
+    - "80"
+    - "443"
+    - "8080"
+    - "8443"
+    - "8009"
+    - "8180"
+    - "8543"
+    - "8109"
+    - "5432"
+    - "22"

@@ -1,0 +1,58 @@
+CassandraSeed:
+  environment:
+    RANCHER_ENABLE: 'true'
+    RANCHER_SEED_SERVICE: CassandraSeed
+    CASSANDRA_RACK: 'rack1'
+    CASSANDRA_DC: aws-us-east
+    CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name},Cassandra1,Cassandra2
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${rack1_label}
+  tty: true
+  image: autoshift/cassandra:2.2
+  stdin_open: true
+  volumes:
+    - /cassandra:/var/lib/cassandra
+
+Cassandra1:
+  environment:
+    RANCHER_ENABLE: 'true'
+    RANCHER_SEED_SERVICE: CassandraSeed
+    CASSANDRA_RACK: 'rack1'
+    CASSANDRA_DC: aws-us-east
+    CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name},CassandraSeed,Cassandra2
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${rack1_label}
+  tty: true
+  image: autoshift/cassandra:2.2
+  stdin_open: true
+  volumes:
+    - /cassandra:/var/lib/cassandra
+  links:
+    - CassandraSeed
+
+Cassandra2:
+  environment:
+    RANCHER_ENABLE: 'true'
+    RANCHER_SEED_SERVICE: CassandraSeed
+    CASSANDRA_RACK: 'rack2'
+    CASSANDRA_DC: aws-us-east
+    CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name},CassandraSeed,Cassandra1
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${rack2_label}
+  tty: true
+  image: autoshift/cassandra:2.2
+  stdin_open: true
+  volumes:
+    - /cassandra:/var/lib/cassandra
+  links:
+    - CassandraSeed
+    - Cassandra1

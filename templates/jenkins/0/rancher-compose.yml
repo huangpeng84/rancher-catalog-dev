@@ -1,0 +1,29 @@
+.catalog:
+  name: Jenkins
+  version: latest
+  uuid: jenkins-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: JENKINS_DIR
+    description: 'Data & configuration directory'
+    label: 'Directory:'
+    required: true
+    default: /var/jenkins
+    type: string
+  - variable: DOCKER_HOST
+    description: 'Address of remote or local Docker daemon'
+    label: 'Docker host:'
+    required: true
+    default: tcp://docker-daemon:2376
+    type: string
+  - variable: DOCKER_TLS_VERIFY
+    description: 'Enable or not TLS verify while connecting to daemon'
+    label: 'TLS:'
+    required: true
+    default: 1
+    type: int

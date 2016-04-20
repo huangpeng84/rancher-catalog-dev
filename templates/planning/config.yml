@@ -1,0 +1,5 @@
+name: Planning
+description: |
+  Stack que utiliza um banco de dados externo.
+version: latest
+category: Application

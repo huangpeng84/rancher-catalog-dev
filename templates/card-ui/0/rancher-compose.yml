@@ -1,0 +1,26 @@
+.catalog:
+  name: card.ui
+  version: 1
+  description: "Leankit Internal Node App: card.ui"
+  uuid: card-ui-1
+
+card-ui:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    response_timeout: 1000
+
+card-ui-app:
+  scale: 1
+  health_check:
+    port: 8008
+    interval: 2000
+    unhealthy_threshold: 2
+    request_line: GET /node/ui/card/_status HTTP/1.1
+    healthy_threshold: 2
+    response_timeout: 1000

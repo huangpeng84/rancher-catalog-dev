@@ -1,0 +1,319 @@
+
+Locust-Slave-01:
+
+  ports:
+
+  - 10011:8089
+
+  - 10012:5557
+
+  - 10013:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url} 
+
+    STATSD_HOST: statsd
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+Locust-Slave-02:
+
+  ports:
+
+  - 10021:8089
+
+  - 10022:5557
+
+  - 10023:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+    STATSD_HOST: statsd
+    STATSD_PORT: 8125
+    STATSD_PREFIX: locust
+    GRAFANA_URL: http://85.199.129.129:3000
+    GRAFANA_USER: admin
+    GRAFANA_PASSWORD: admin
+    INFLUXDB_USER: root
+    INFLUXDB_PASSWORD: root
+    INFLUXDB_HOST: http://85.199.129.129:8086
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+Locust-Slave-03:
+
+  ports:
+
+  - 10031:8089
+
+  - 10032:5557
+
+  - 10033:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+Locust-Slave-04:
+
+  ports:
+
+  - 10041:8089
+
+  - 10042:5557
+
+  - 10043:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+
+Locust-Slave-05:
+
+  ports:
+
+  - 10051:8089
+
+  - 10052:5557
+
+  - 10053:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+
+Locust-Slave-06:
+
+  ports:
+
+  - 10061:8089
+
+  - 10062:5557
+
+  - 10063:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+Locust-Slave-07:
+
+  ports:
+
+  - 10071:8089
+
+  - 10072:5557
+
+  - 10073:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+Locust-Slave-08:
+
+  ports:
+
+  - 10081:8089
+
+  - 10082:5557
+
+  - 10083:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+Locust-Slave-09:
+
+  ports:
+
+  - 10091:8089
+
+  - 10092:5557
+
+  - 10093:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true
+
+
+
+Locust-Slave-10:
+
+  ports:
+
+  - 10101:8089
+
+  - 10102:5557
+
+  - 10103:5558
+
+  environment:
+
+    LOCUST_MODE: slave
+
+    MASTER_HOST: 85.199.129.129
+
+    TARGET_URL: ${target_url}
+
+  labels:
+
+    io.rancher.container.pull_image: always
+
+  tty: true
+
+  image: legendary/locust
+
+  stdin_open: true

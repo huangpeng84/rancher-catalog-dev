@@ -1,0 +1,21 @@
+.catalog:
+  name: "Neo4j"
+  version: "v0.1"
+  description: "Neo4j Graph DB instance"
+  uuid: neo4j-0
+  minimum_rancher_version: v0.51.0
+  questions:
+     - variable: "VOLUME_POOL"
+       description: "Name of the Volume"
+       label: "Storage Volume"
+       required: true
+       type: "string"
+       default: volume_created_in_convoy
+     - variable: "VOLUME_DRIVER"
+       description: "Name of the Volume driver"
+       label: "Driver Volume"
+       required: true
+       type: "string"
+       default: convoy-gluster
+
+neo4j:

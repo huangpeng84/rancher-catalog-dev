@@ -1,0 +1,8 @@
+name: Autoshift Devops
+description: |
+  (Experimental) Autoshift Devops Stack
+version: 0.1.0
+category: clustering
+maintainer: "Autoshift team"
+minimum_rancher_version: v0.56.0
+license:

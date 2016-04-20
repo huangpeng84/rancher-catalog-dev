@@ -1,0 +1,11 @@
+owserver:
+  image: docker-registry.crt.nersc.gov:5000/mini/owfs-server:0.18
+  net: host
+  labels:
+      io.rancher.scheduler.affinity:host_label: net.onewire=true
+
+jobber:
+  image: docker-registry.crt.nersc.gov:5000/mini/owfs-jobber:0.9
+
+worker:
+  image: docker-registry.crt.nersc.gov:5000/mini/owfs-worker:0.7

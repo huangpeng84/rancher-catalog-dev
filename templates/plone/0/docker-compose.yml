@@ -1,0 +1,35 @@
+loadbalancer:
+  ports:
+  - 8080:80
+  restart: always
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - app1:app1
+  stdin_open: true
+  labels:
+    io.rancher.scheduler.affinity:host_label_soft: balancer=true
+    io.rancher.container.hostname_override: container_name
+app1:
+  expose:
+  - "80"
+  restart: always
+  environment:
+    BUILDOUT_ZEO_CLIENT: 'True'
+    BUILDOUT_ZEO_ADDRESS: zeo:8100
+  tty: true
+  image: eeacms/plone
+  links:
+  - zeo:zeo
+  stdin_open: true
+  labels:
+    io.rancher.container.hostname_override: container_name
+zeo:
+  expose:
+  - "8100"
+  restart: always
+  tty: true
+  image: eeacms/zeoserver
+  stdin_open: true
+  labels:
+    io.rancher.container.hostname_override: container_name

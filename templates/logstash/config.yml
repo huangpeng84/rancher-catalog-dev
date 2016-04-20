@@ -1,0 +1,5 @@
+name: Logstash
+description: |
+  Centralize data processing of all types
+version: 2.1.1-1-mgolly1
+category: ELK

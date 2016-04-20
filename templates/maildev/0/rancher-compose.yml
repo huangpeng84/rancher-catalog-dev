@@ -1,0 +1,17 @@
+.catalog:
+  name: Maildev
+  version: latest
+  uuid: maildev-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: SMTP_PORT
+    description: 'SMTP port'
+    label: 'Port:'
+    required: true
+    default: 1025
+    type: int

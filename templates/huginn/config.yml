@@ -1,0 +1,6 @@
+name: Huginn
+description: |
+  Huginn, a hackable Yahoo! Pipes plus IFTTT on your own server.
+version: v0.1-huginn
+category: Applications
+maintainer: "Dominic Taylor <dominic@yobasystems.co.uk"

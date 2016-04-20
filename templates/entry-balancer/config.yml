@@ -1,0 +1,6 @@
+name: Red-green loadbalancer service
+description: |
+  A red-green load balancer configuration which balances into two different
+  services. Eases update management.
+version: "0.0.1"
+category: Cognotekt

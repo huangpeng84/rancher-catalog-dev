@@ -1,0 +1,23 @@
+redis:
+  image: rancher/load-balancer-service
+  ports:
+    - 6379:6379/tcp
+  stdin_open: true
+  tty: true
+  links:
+    - master:master
+
+master:
+  image: redis:3.0.7
+  expose:
+    - 6379/tcp
+  stdin_open: true
+  tty: true
+  command:
+    - redis-server
+    - --save
+    - ''
+    - --maxmemory
+    - 1gb
+  labels:
+    io.rancher.container.pull_image: always

@@ -1,0 +1,39 @@
+.catalog:
+  name: "MongoDB"
+  version: "3.2.1-rancher1"
+  description: "MongoDB Replica Set"
+  minimum_rancher_version: v0.46.0
+  questions:
+    - variable: replset_name
+      description: "Name of the MongoDB replicaSet"
+      label: "ReplicaSet Name"
+      type: "string"
+      required: true
+      default: "bitbuilder"
+    - variable: mongoconf_image
+      description: "docker image with mongodb-config files"
+      label: "MongoDB Conf Image"
+      type: "string"
+      required: true
+      default: "danielbodnar/mongodb-conf:bitbuilder"
+    - variable: host_label
+      description: "host label affinity"
+      label: "Host Affinity"
+      type: "string"
+      required: true
+      default: "role.db=1"
+    - variable: mongo_version
+      description: "mongodb version"
+      label: "MongoDB Version"
+      type: "string"
+      required: true
+      default: "3.2.1"
+mongo-cluster:
+  scale: 3
+  metadata:
+    mongo:
+      yml:
+        replset.name: "${replset_name}"
+        replset.mongoconf_image: "${mongoconf_image}"
+        replset.host_label: "${host_label}"
+        replset.mongo_version: "${mongo_version}"

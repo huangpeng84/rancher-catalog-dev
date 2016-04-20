@@ -1,0 +1,10 @@
+.catalog:
+  name: "ATSWORDPRESS" 
+  version: "v0.1"
+  description: "first test version"
+  questions:
+    - variable: "env_lbl"
+      label: "env_lbl"
+      required: true
+      description: "please enter jon server name"
+      type: "string"  

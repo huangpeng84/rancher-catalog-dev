@@ -1,0 +1,4 @@
+.catalog
+  name: CentOS 7
+  version: 1.0
+  description: CentOS 7 pour les benchmarks

@@ -1,0 +1,4 @@
+name: "Grafana 2"
+description: "Visualization dashboard"
+version: "2.6.0-mgolly1"
+category: Monitoring

@@ -1,0 +1,6 @@
+image: centos
+net: "bridge"
+mem_limit: 512
+cpuset: 0
+stdin_open: true
+tty: true

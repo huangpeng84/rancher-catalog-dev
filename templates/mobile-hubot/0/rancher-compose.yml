@@ -1,0 +1,57 @@
+.catalog:
+  name: mobot
+  version: 0.2.4-27
+  description: "LeanKit Mobile: chat-ops build bot"
+  uuid: mobot-0.2.4-27
+  questions:
+    - variable: github_api_key
+      label: "GitHub API Key"
+      description: |
+        GitHub token with access to push to the specified repository.
+      type: password
+      required: true
+      default: 328471691e2cc5127a767b89a0ae4ca2243cde4e
+    - variable: mobile_repo_name
+      label: "GitHub Repository Name"
+      description: |
+        Name of the mobile repository excluding uri content and owner.
+      type: string
+      required: true
+      default: leankit-mobile
+    - variable: slack_token
+      label: "Slack API Token"
+      description: |
+        Slack API token to run under.  This defaults to `tincan's`
+        access credentials.
+      type: password
+      required: true
+      default: xoxb-19678350916-tmS3LWAbvQQwrRcoNtvp9463
+    - variable: slack_rooms
+      label: "Slack Broadcast Rooms"
+      description: |
+        Comma-separated list of Slack rooms to broadcast messages to.
+        The bot needs to be invited to the rooms to join them before it
+        can send messages there.
+      type: string
+      required: true
+      default: mobile-build-test
+    - variable: logging_level
+      label: "Logging Level"
+      description: |
+        Log level that will be used for logging messages.
+      type: enum
+      options:
+        - debug
+        - info
+      required: true
+      default: info
+
+mobot-server:
+  scale: 1
+  # health_check:
+  #   port: 8810
+  #   interval: 5000
+  #   unhealthy_threshold: 2
+  #   healthy_threshold: 2
+  #   request_line: GET /status
+  #   response_timeout: 2000

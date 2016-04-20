@@ -1,0 +1,57 @@
+consul-seed:
+  image: ${consul_image}
+  command: -server -bootstrap-expect 3 -ui
+  ports:
+    - "8999:8500"
+  expose:
+    - "8300-8302"
+    - "8300-8302/udp"
+    - "8400"
+    - "53/udp"
+  volumes_from:
+    - consul-seed-data
+  environment:
+    - "GOMAXPROCS=10"
+  labels:
+    io.rancher.service.selector.link: consul
+    io.rancher.sidekicks: consul-seed-data
+    io.rancher.container.pull_image: always
+
+consul-masters:
+  image: ${consul_image}
+  command: >
+    -server
+    -bootstrap-expect 3
+    -retry-interval 10s
+    -retry-join seed
+    -retry-max 2
+  expose:
+    - "8300-8302:8300-8302"
+    - "8300-8302:8300-8302/udp"
+    - "8400:8400"
+    - "8500:8500"
+    - "8600:53/udp"
+  links:
+    - consul-seed:seed
+  volumes_from:
+    - consul-master-data
+  environment:
+    - "GOMAXPROCS=10"
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.sidekicks: consul-master-data
+    io.rancher.container.pull_image: always
+
+consul-seed-data:
+  image: busybox
+  volumes:
+    - "/var/lib/consul"
+  labels:
+    io.rancher.container.start_once: "true"
+
+consul-master-data:
+  image: busybox
+  volumes:
+    - "/var/lib/consul"
+  labels:
+    io.rancher.container.start_once: "true"

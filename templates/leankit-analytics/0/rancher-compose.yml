@@ -1,0 +1,26 @@
+.catalog:
+  name: leankit-analytics
+  version: 1
+  description: "Leankit Internal Node App: leankit-analytics"
+  uuid: leankit-analytics-1
+
+leankit-analytics:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    response_timeout: 1000
+
+leankit-analytics-app:
+  scale: 1
+  health_check:
+    port: 8038
+    interval: 2000
+    unhealthy_threshold: 2
+    request_line: GET /analytics/api/_status HTTP/1.1
+    healthy_threshold: 2
+    response_timeout: 1000

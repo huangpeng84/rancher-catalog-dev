@@ -1,0 +1,22 @@
+wordpress_nginx:
+
+  image: legendary/wordpress-nginx
+
+  ports:
+    - "22"
+    - "80"
+
+  restart: always
+  hostname: ${url}
+  domainname: ${url}
+
+  environment:
+    VIRTUAL_HOST: ${url}
+    LETSENCRYPT_HOST: ${url}
+    LETSENCRYPT_EMAIL: ${email}
+
+  labels:
+    io.rancher.container.pull_image: always
+
+  tty: true
+  stdin_open: true

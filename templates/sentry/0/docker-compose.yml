@@ -1,0 +1,46 @@
+sentry-lb:
+  ports:
+  - ${PUBLIC_PORT}:9000
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+    - sentry:sentry
+  stdin_open: true
+
+sentry:
+  image: sentry
+  ports:
+    - 9000:9000
+  environment:
+    SENTRY_SECRET_KEY: ${SENTRY_SECRET_KEY}
+  links:
+    - sentry-redis:redis
+    - sentry-postgres:postgres
+
+sentry-redis:
+  image: redis
+
+sentry-postgres:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: secret
+    POSTGRES_USER: sentry
+
+sentry-celery-beat:
+  image: sentry-celery-beat
+
+  environment:
+    SENTRY_SECRET_KEY: ${SENTRY_SECRET_KEY}
+  links:
+    - sentry-postgres:postgres
+    - sentry-redis:redis sentry celery beat
+
+sentry-celery:
+  image: sentry-celery
+
+  environment:
+    SENTRY_SECRET_KEY: ${SENTRY_SECRET_KEY}
+  links:
+    - sentry-postgres:postgres
+    - sentry-redis:redis sentry celery worker
+

@@ -1,0 +1,25 @@
+.catalog:
+  name: Rabbit
+  version: 3.6.0-5
+  description: Rabbit - Single Dev Instance
+  uuid: rabbit-3.6.0-5
+  questions:
+    - variable: username
+      label: Username/vHost
+      description: vHost will be set as /<username>
+      type: string
+      required: true
+    - variable: password
+      label: Password
+      type: password
+      required: true
+
+rabbit:
+  scale: 1
+  health_check:
+    port: 15672
+    interval: 2000
+    unhealthy_threshold: 2
+    request_line: GET / HTTP/1.1
+    healthy_threshold: 2
+    response_timeout: 1000

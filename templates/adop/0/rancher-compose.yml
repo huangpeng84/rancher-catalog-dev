@@ -1,0 +1,181 @@
+.catalog:
+  name: ADOP
+  version: 0.1.0-rancher1
+  description: |
+    (Experimental) Accenture DevOps Platform.
+  minimum_rancher_version: v0.46.0
+  questions:
+    - variable: "TARGET_HOST"
+      label: "Host IP"
+      description: "Target host ip address"
+      type: "string"
+      required: true
+
+    - variable: "LOGSTASH_HOST"
+      label: "Logstash IP"
+      description: "Logstash host ip address"
+      type: "string"
+      required: true
+
+    - variable: "CUSTOM_NETWORK_NAME"
+      label: "ADOP network"
+      description: "ADOP network name"
+      type: "string"
+      default: "managed"
+      required: true
+
+    - variable: "LDAP_PWD"
+      label: "LDAP password"
+      description: ""
+      type: "password"
+      default: "Jpk66g63ZifGYIcShSGM"
+      required: true
+
+    - variable: "LDAP_DOMAIN"
+      label: "LDAP domain"
+      description: ""
+      type: "string"
+      default: "ldap.example.com"
+      required: true
+
+    - variable: "LDAP_FULL_DOMAIN"
+      label: "LDAP full domain"
+      description: ""
+      type: "string"
+      default: "dc=ldap,dc=example,dc=com"
+      required: true
+
+    - variable: "GERRIT_MYSQL_USER"
+      label: "Gerrit MySQL user"
+      description: ""
+      type: "string"
+      default: "gerrit"
+      required: true
+
+    - variable: "GERRIT_MYSQL_PASSWORD"
+      label: "Gerrit MySQL password"
+      description: ""
+      type: "password"
+      default: "gerrit"
+      required: true
+
+    - variable: "GERRIT_MYSQL_DATABASE"
+      label: "Gerrit MySQL database name"
+      description: ""
+      type: "string"
+      default: "gerrit"
+      required: true
+
+    - variable: "GERRIT_USER_NAME"
+      label: "Gerrit user name"
+      description: ""
+      type: "string"
+      default: "Gerrit Code Review"
+      required: true
+
+    - variable: "GERRIT_USER_EMAIL"
+      label: "Gerrit user email"
+      description: ""
+      type: "string"
+      default: "gerrit@adop"
+      required: true
+
+    - variable: "SONAR_MYSQL_USER"
+      label: "Sonar MySQL user"
+      description: ""
+      type: "string"
+      default: "sonar"
+      required: true
+
+    - variable: "SONAR_MYSQL_PASSWORD"
+      label: "Sonar MySQL password"
+      description: ""
+      type: "password"
+      default: "sonar"
+      required: true
+
+    - variable: "SONAR_MYSQL_DATABASE"
+      label: "Sonar MySQL database name"
+      description: ""
+      type: "string"
+      default: "sonar"
+      required: true
+
+    - variable: "SONAR_ACCOUNT_LOGIN"
+      label: "Sonar Account login"
+      description: ""
+      type: "string"
+      default: "jenkins"
+      required: true
+
+    - variable: "SONAR_ACCOUNT_PASSWORD"
+      label: "Sonar Account password"
+      description: "Sonar account password"
+      type: "password"
+      default: "jenkins"
+      required: true
+
+    - variable: "SONAR_DB_LOGIN"
+      label: "Sonar DB login"
+      description: ""
+      type: "string"
+      default: "sonar"
+      required: true
+
+    - variable: "SONAR_DB_PASSWORD"
+      label: "Sonar DB password"
+      description: ""
+      type: "password"
+      default: "sonar"
+      required: true
+
+    - variable: "DOCKER_HOST"
+      label: "Dockre host"
+      description: ""
+      type: "string"
+      default: ""
+
+    - variable: "DOCKER_TLS_VERIFY"
+      label: "Docker TLS verify"
+      description: ""
+      type: "string"
+      default: ""
+
+    - variable: "DOCKER_CLIENT_CERT_PATH"
+      label: "Docker client cert path"
+      description: ""
+      type: "string"
+      default: "/root/.docker/"
+      required: true
+
+proxy:
+  health_check:
+    port: 80
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+
+jenkins:
+  health_check:
+    port: 8080
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+
+nexus:
+  health_check:
+    port: 8081
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+
+gerrit:
+  health_check:
+    port: 8080
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

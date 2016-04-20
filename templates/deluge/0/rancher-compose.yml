@@ -1,0 +1,22 @@
+.catalog:
+  name: "deluge"
+  version: "1.0"
+  description: "Deluge"
+  uuid: deluge-0
+  questions:
+    - variable: "DEPOT_USER"
+      description: "The username to login to the application with"
+      label: "Username"
+      required: true
+      default: "depot"
+      type: "string"
+    - variable: "DEPOT_PASSWORD"
+      description: "The password to login to the application with"
+      label: "Password"
+      required: true
+      default: "depotd3p0!"
+      type: "string"
+app:
+  scale: 1
+data:
+  scale: 1

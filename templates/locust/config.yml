@@ -1,0 +1,5 @@
+name: Locust
+description: |
+  Locust - a mondern load testing tool.
+version: 3.0.0-rancher1
+category: load testing

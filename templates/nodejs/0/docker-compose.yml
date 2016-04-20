@@ -1,0 +1,18 @@
+node:
+  image: vibioh/node
+  command: node ${NODE_COMMAND}
+  labels:
+    traefik.port: '${NODE_PORT}'
+    traefik.frontend.rule: 'Host'
+    traefik.frontend.value: '${SUBDOMAIN}.${DOMAIN}'
+    traefik.frontend.passHostHeader: 'true'
+  working_dir: /usr/src
+  volumes:
+  - ${WORKING_DIR}:/usr/src
+  - ${NODE_GLOBAL_DIR}:/usr/node
+  read_only: true
+  log_opt:
+    max-size: '50m'
+  restart: 'no'
+  cpu_shares: 512
+  mem_limit: 268435456

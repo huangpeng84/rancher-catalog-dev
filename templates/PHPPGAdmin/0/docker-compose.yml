@@ -1,0 +1,9 @@
+PHPPGAdmin:
+  hostname: phppgadmin
+  image: steigr/phppgadmin:5.2-dev
+  expose:
+  - "80"
+  external_links:
+  - ${DATABASE_CONTAINER}:postgres
+  environment:
+    PHPPGADMIN_PATH: ${PHPPGADMIN_PATH}

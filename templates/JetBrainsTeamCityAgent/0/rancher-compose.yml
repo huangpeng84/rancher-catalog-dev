@@ -1,0 +1,15 @@
+.catalog:
+  name: JetBrains TeamCity Agent
+  version: "1"
+  description: JetBrains TeamCity Agent
+  uuid: jetbrains-teamcityagent-1
+  questions: 
+  - variable: "TEAMCITY_SERVER"
+    label: "TeamCity Server"
+    description: "URL of your teamcity server"
+    default: http://teamcity.example.com
+    required: true
+    type: "string"
+
+TeamCity-Agent:
+  scale: 1

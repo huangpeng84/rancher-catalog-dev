@@ -1,0 +1,17 @@
+.catalog:
+  name: "UC6 Platform"
+  version: "v1.4"
+  description: "6fusion UC6 Infrastructure Metering Platform."
+  uuid: uc6-0
+  minimum_rancher_version: v0.51.0
+  questions:
+memcache:
+  scale: 1
+console:
+  scale: 1
+redis:
+  scale: 1
+mongodb:
+  scale: 1
+database:
+  scale: 1

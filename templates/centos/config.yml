@@ -1,0 +1,7 @@
+name: CentOS 7
+description: Templates pour un conteneur CentOS pour les benchmarks
+version: 1.0 
+category: Ville de Liège
+maintainer: Axel Fournier
+license: Apache 2.0
+projectURL: https://github.com/axel879/rancher-catalog

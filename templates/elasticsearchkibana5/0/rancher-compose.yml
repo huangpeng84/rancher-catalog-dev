@@ -1,0 +1,28 @@
+.catalog:
+  name: "elasticsearchkibana5"
+  description: "Simple Elasticsearch5-Kibana4 (all nodes are data+master) with simple autho"
+  version: "0.5.4"
+  uuid: esk-0
+  questions:
+    - variable: cluster_name
+      label: "Cluster Name"
+      type: "string"
+      required: true
+    - variable: node_number
+      label: "Number of nodes"
+      type: "int"
+      default: 3
+    - variable: min_master_nodes
+      label: "Minimum number of master nodes"
+      type: "int"
+      default: 2
+
+elasticsearch:
+  scale: ${node_number}
+  metadata:
+    elasticsearch:
+      yml:
+        cluster.name: "${cluster_name}"
+        discovery.zen.minimum_master_nodes: ${min_master_nodes}
+kibana:
+  scale: 1

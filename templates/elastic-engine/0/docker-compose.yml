@@ -1,0 +1,102 @@
+esmaster:
+    image: eeacms/elastic:1.7.1-1.5.7
+    restart: always
+    command: # No data, no http, no river, can be master
+        - elasticsearch
+        - -Des.cluster.name="SearchServices"
+        - -Des.node.data=false
+        - -Des.http.enabled=false
+        - -Des.node.master=true
+        - -Des.node.river=_none_
+    volumes_from:
+        - datam
+    labels:
+        io.rancher.sidekicks: datam
+        io.rancher.container.hostname_override: container_name
+        io.rancher.scheduler.affinity:host_label: elastic=yes
+    net: "host"
+
+datam:
+    image: busybox
+    tty: true
+    command:
+        - cat
+    volumes:
+        - /usr/share/elasticsearch/data
+    stdin_open: true
+
+esclient:
+    image: eeacms/elastic:1.7.1-1.5.7
+    restart: always
+    command: # No data, http, no river, can't be master
+        - elasticsearch
+        - -Des.cluster.name="SearchServices"
+        - -Des.node.data=false
+        - -Des.http.enabled=true
+        - -Des.node.master=false
+        - -Des.node.river=_none_
+    ports:
+        - 9200:9200
+    labels:
+        io.rancher.scheduler.affinity:host_label: elastic=yes
+        io.rancher.container.hostname_override: container_name
+    net: "host"
+
+esworker1:
+    image: eeacms/elastic:1.7.1-1.5.7
+    restart: always
+    command: # Data, no http, river, can't be master
+        - elasticsearch
+        - -Des.cluster.name="SearchServices"
+        - -Des.node.data=true
+        - -Des.http.enabled=false
+        - -Des.node.master=false
+    volumes_from:
+        - dataw1
+    environment:
+        - ES_HEAP_SIZE=2g
+    labels:
+        io.rancher.sidekicks: dataw1
+        io.rancher.scheduler.affinity:host_label: elastic=yes
+        io.rancher.container.hostname_override: container_name
+    net: "host"
+
+dataw1:
+    image: busybox
+    tty: true
+    command:
+        - cat
+    volumes:
+        - /usr/share/elasticsearch/data
+    stdin_open: true
+
+esworker2:
+    image: eeacms/elastic:1.7.1-1.5.7
+    restart: always
+    command: # Data, no http, river, can't be master
+        - elasticsearch
+        - -Des.cluster.name="SearchServices"
+        - -Des.node.data=true
+        - -Des.http.enabled=false
+        - -Des.node.master=false
+    volumes_from:
+        - dataw2
+    environment:
+        - ES_HEAP_SIZE=2g
+    labels:
+        io.rancher.sidekicks: dataw2
+        io.rancher.scheduler.affinity:host_label: elastic=yes
+        io.rancher.container.hostname_override: container_name
+    net: "host"
+
+dataw2:
+    image: busybox
+    tty: true
+    command:
+        - cat
+    volumes:
+        - /usr/share/elasticsearch/data
+    stdin_open: true
+
+elastic-endpoint:
+  image: rancher/external-service

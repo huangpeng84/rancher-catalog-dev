@@ -1,0 +1,8 @@
+.catalog:
+  name: RQ Dashboard
+  version: 0.1
+  description: |
+    RQ Dashboard creates a web interface into a RQ queue.
+
+rq-dashboard:
+  scale: 1

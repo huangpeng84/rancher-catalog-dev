@@ -1,0 +1,21 @@
+.catalog:
+    name: Modbus Collection Service
+    version: 0.1
+    description: |
+       Modbus polling 
+    questions:
+      - variable: "pdu_worker_scale"
+        description: "Number of workers for PDU collection.."
+        label: "Worker Nodes:"
+        required: true
+        default: 5
+        type: "int"
+
+pdu:
+    scale: ${pdu_worker_scale}
+ion:
+    scale: 2
+ups:
+    scale: 2
+master:
+    scale: 1

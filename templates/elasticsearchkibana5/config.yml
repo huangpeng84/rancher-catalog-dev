@@ -1,0 +1,6 @@
+name: ElasticsearchKibana5
+description: |
+  Elasticsearch 5 and Kibana 5 with HTTP (nginx) basic authentication
+version: v0.0.1
+category: "Camptocamp Infrastructure Projects"
+uuid: elk5-0

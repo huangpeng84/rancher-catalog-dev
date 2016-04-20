@@ -1,0 +1,4 @@
+name: Redis
+description: Redis - Single Dev Instance
+version: 3.0.7-1
+category: LeanKit Services

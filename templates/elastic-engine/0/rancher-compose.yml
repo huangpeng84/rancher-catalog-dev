@@ -1,0 +1,23 @@
+.catalog:
+  name: "Elastic-engine"
+  version: "1.0-rancher1"
+  description: "EEA Elasticsearch cluster to be used with elastic apps"
+  uuid: elastic-engine-0
+esmaster:
+  scale: 1
+esclient:
+  scale: 1
+dataw1:
+  scale: 1
+dataw2:
+  scale: 1
+datam:
+  scale: 1
+esworker2:
+  scale: 1
+esworker1:
+  scale: 1
+elastic-endpoint:
+  external_ips:
+  - 10.142.71.201
+

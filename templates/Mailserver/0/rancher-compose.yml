@@ -1,0 +1,104 @@
+.catalog:
+  name: "Mailserver"
+  version: "3.1.0"
+  description: "Mailserver with Anti-Spam"
+  uuid: mailserver-server-0
+  questions: 
+  - variable: "DOMAIN"
+    label: "Domain"
+    description: "Primary Domain of Mailserver"
+    default: example.com
+    required: true
+    type: "string"
+  - variable: "MAILBOX_CONTAINER"
+    label: "Mailbox Container"
+    description: "The Mailbox-Container must run lmtpd service."
+    required: true
+    type: "service"
+  - variable: "MAILBOX_HOST"
+    label: "Mailbox Server Name"
+    description: "The name under which the mailbox container is reached."
+    required: true
+    type: "string"
+    default: "mailbox-deliver"
+  - variable: "DATABASE_DRIVER"
+    label: "Database Type"
+    default: ""
+    required: false
+    type: "enum"
+    options:
+    - ""
+    - postgres
+    - mysql
+    - sqlite3
+  - variable: "DATABASE_CONTAINER"
+    label: "Database Contaier"
+    required: false
+    type: "service"
+  - variable: "DATABASE_HOST"
+    label: "Database Server"
+    required: false
+    type: "string"
+    default: "database-server"
+  - variable: "DATABASE_NAME"
+    label: "Database Name"
+    required: false
+    type: "string"
+  - variable: "DATABASE_USER"
+    label: "Database User"
+    default: postfix
+    required: false
+    type: "string"
+  - variable: "DATABASE_PASSWORD"
+    label: "Database Password"
+    required: false
+    type: "password"
+  - variable: "PROXY_PROTOCOL_ENABLE"
+    label: "PROXY-Protocol"
+    description: "Enable Services with PROXY-Protocol Encapsulation"
+    required: true
+    default: "true"
+    type: "boolean"
+  - variable: "PROXY_PROTOCOL_OFFSET"
+    label: "PROXY-Protocol Port Offset"
+    description: "Offset of PROXY-Protocol-Services, with '10000' SMTP /w PROXY is reachable under 10025"
+    required: false
+    type: "int"
+  - variable: "SSL_CERTIFICATE_KEY"
+    label: "SSL Private Key"
+    required: false
+    type: "multiline"
+  - variable: "SSL_CERTIFICATE"
+    label: "SSL Certificate"
+    required: false
+    type: "multiline"
+  - variable: "SSL_CERTIFICATE_CHAIN"
+    label: "SSL Certificate Chain"
+    required: false
+    type: "multiline"
+
+Server:
+  scale: 1
+  health_check:
+    port: 25
+    interval: 2000
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreateOnQuorum
+    response_timeout: 2000
+    healthy_threshold: 2
+  metadata:
+    gr.stei.mailserver.domain: ${DOMAIN}
+    gr.stei.mailserver.global.ssl.certificate: ${SSL_CERTIFICATE}
+    gr.stei.mailserver.global.ssl.key: ${SSL_CERTIFICATE_KEY}
+    gr.stei.mailserver.global.ssl.chain: ${SSL_CERTIFICATE_CHAIN}
+    gr.stei.mailserver.database.driver: ${DATABASE_DRIVER}
+    gr.stei.mailserver.database.server: ${DATABASE_HOST}
+    gr.stei.mailserver.database.user: ${DATABASE_USER}
+    gr.stei.mailserver.database.password: ${DATABASE_PASSWORD}
+    gr.stei.mailserver.database.name: ${DATABASE_NAME}
+    gr.stei.mailserver.proxy.enable: ${PROXY_PROTOCOL_ENABLE}
+    gr.stei.mailserver.proxy.offset: ${PROXY_PROTOCOL_OFFSET}
+    gr.stei.mailserver.deliver.host: ${MAILBOX_HOST}

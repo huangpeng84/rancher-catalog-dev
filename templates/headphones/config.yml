@@ -1,0 +1,4 @@
+name: Headphones
+description: Headphones is an automated music downloader for NZB and Torrent, written in Python.
+category: Media
+version: 1.0

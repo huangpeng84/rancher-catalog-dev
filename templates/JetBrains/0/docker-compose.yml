@@ -1,0 +1,51 @@
+Hub:
+  hostname: hub
+  image: steigr/hub
+  volumes:
+  - /data/JetBrains/Hub/volumes/opt/Hub/data:/opt/Hub/data
+  - /data/JetBrains/Hub/volumes/opt/Hub/backups:/opt/Hub/backups
+
+Upsource:
+  hostname: upsource
+  image: steigr/upsource
+  links:
+  - Hub:hub
+  volumes:
+  - /data/JetBrains/Upsource/volumes/opt/Upsource/data:/opt/Upsource/data
+  - /data/JetBrains/Upsource/volumes/opt/Upsource/backups:/opt/Upsource/backups
+
+YouTrack:
+  hostname: youtrack
+  image: steigr/youtrack
+  links:
+  - Hub:hub
+  volumes:
+  - /data/JetBrains/Youtrack/volumes/opt/Youtrack/data:/opt/Youtrack/data
+  - /data/JetBrains/Youtrack/volumes/opt/Youtrack/backups:/opt/Youtrack/backups
+
+TeamCity:
+  hostname: teamcity
+  image: steigr/teamcity
+  volumes:
+  - /data/JetBrains/TeamCity/volumes/opt/TeamCity/data:/opt/TeamCity/data
+  - /data/JetBrains/TeamCity/volumes/opt/TeamCity/backups:/opt/TeamCity/backups
+
+TeamCity-Agent:
+  image: steigr/teamcity-agent
+  links:
+  - TeamCity:teamcity
+
+HTTP-Router:
+  expose:
+  - 80:8080
+  labels:
+    io.rancher.loadbalancer.target.TeamCity: teamcity.${DOMAIN}
+    io.rancher.loadbalancer.target.Upsource: upsource.${DOMAIN}
+    io.rancher.loadbalancer.target.Hub: hub.${DOMAIN}
+    io.rancher.loadbalancer.target.YouTrack: youtrack.${DOMAIN}
+  image: rancher/load-balancer-service
+  links:
+  - YouTrack:YouTrack
+  - Hub:Hub
+  - Upsource:Upsource
+  - TeamCity:TeamCity

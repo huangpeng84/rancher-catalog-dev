@@ -1,0 +1,22 @@
+wlslb:
+  ports:
+  - 17001:7001
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - wlssvc:wlssvc
+  stdin_open: true
+wlssvc:
+  environment:
+    APPLICATION_NAME: ${application_name}
+    ARTIFACT_URL: ${artifact_url}
+    DATASOURCE_NAME: ${datasource_name}
+    DATABASE_HOST: ${database_host}
+    DATABASE_USERNAME: ${database_username}
+    DATABASE_PASSWORD: ${database_password}
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$$$${stack_name}/$$$${service_name}
+    io.rancher.container.pull_image: always
+  tty: true
+  image: rancherapps.com:5000/wls1036-basedomain:v2.6
+  stdin_open: true

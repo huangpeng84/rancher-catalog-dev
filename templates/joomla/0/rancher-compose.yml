@@ -1,0 +1,32 @@
+.catalog:
+  name: "Joomla!"
+  version: 3.5.1-rancher1
+  description: |
+    Joomla! is an award-winning content management system (CMS)
+  questions:
+    - variable: "database_link"
+      description: |
+        stack/service link or external service link to database.
+      label: "Database stack/service"
+      default: ""
+      required: true
+      type: "service"
+    - variable: "volume_data"
+      description: "Volume to share or save Joomla! data (must end with a colon ':' if specified)."
+      label: "Data volume:"
+      default: ""
+      type: "string"
+    - variable: "volume_driver" 
+      label: "Driver volume:"
+      description: |
+        Choose the volume driver to use.
+      default: local
+      required: true
+      type: enum
+      options:
+        - local
+        - convoy-gluster      
+nginx:
+  scale: 1
+lb:
+  scale: 1

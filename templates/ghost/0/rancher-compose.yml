@@ -1,0 +1,21 @@
+.catalog:
+  name: "Ghost"
+  version: "v0.1"
+  description: "Blog powered by Ghost. Requires no database"
+  uuid: ghost-0
+  minimum_rancher_version: v0.51.0
+  questions:
+     - variable: "VOLUME_POOL"
+       description: "Name of the Volume"
+       label: "Storage Volume"
+       required: true
+       type: "string"
+       default: volume_created_in_convoy
+     - variable: "VOLUME_DRIVER"
+       description: "Name of the Volume driver"
+       label: "Driver Volume"
+       required: true
+       type: "string"
+       default: convoy-gluster
+
+ghost:

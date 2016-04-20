@@ -1,0 +1,22 @@
+.catalog:
+  name: Onewire Service
+  version: 0.1
+  description: |
+    Starts a owserver for every onewire gateway, and
+    maintains a consul service check.
+  questions:
+    - variable: "worker_scale"
+      description: "Number of workers for collection.."
+      label: "Worker Nodes:"
+      required: true
+      default: 1
+      type: "int"
+
+jobber:
+  scale: 1
+
+owserver:
+  scale: 1
+
+worker:
+  scale: ${worker_scale}

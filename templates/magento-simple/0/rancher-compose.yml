@@ -1,0 +1,18 @@
+.catalog:
+  name: "Magento-Simple"
+  version: "v0.1-magento"
+  description: "Popular e-commerce platform"
+  uuid: Magento-Simple-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: "APP_LOCATION"
+      label: "App Files Location On Host"
+      required: true
+      type: "string"
+      default: ""
+    - variable: "MYSQL_LOCATION" 
+      label: "MySQL Location"
+      required: true
+      type: "string"
+      default: "/var/lib/mysql"
+magento:

@@ -1,0 +1,12 @@
+ViMbAdmin:
+  hostname: vimbadmin
+  image: steigr/vimbadmin:3.0.15
+  expose:
+  - "80"
+  external_links:
+  - ${DATABASE_CONTAINER_NAME}:${DOCTRINE_HOST}
+  links:
+  - Mailserver:mailserver
+Mailserver:
+  hostname: mailserver
+  image: steigr/mailout:1

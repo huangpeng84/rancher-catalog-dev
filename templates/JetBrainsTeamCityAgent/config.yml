@@ -1,0 +1,4 @@
+name: JetBrains TeamCity Agent
+description: JetBrains TeamCity Agent
+version: 1
+category: Continuous Integration

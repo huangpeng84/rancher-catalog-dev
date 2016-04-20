@@ -1,0 +1,96 @@
+###############
+# APPLICATION #
+###############
+
+app:
+  image: nexus.docker1.brandung.dev:5000/magento2-php:7-apache
+  links:
+    - db
+    - redis01
+    - redis02
+    - memcached
+    - logstash
+  environment:
+    - VIRTUAL_HOST=${vhost}
+  labels:
+    io.rancher.sidekicks: ssh
+  volumes:
+    - ${vhost}.app.etc:/var/www/html/app/etc
+    - ${vhost}.var:/var/www/html/var
+    - ${vhost}.pub.media:/var/www/html/pub/medi
+  logging:
+    driver: syslog
+    options:
+      syslog-address: "tcp://logstash:5000"
+
+ssh:
+  image: nexus.docker1.brandung.dev:5000/ssh:latest
+  volumes_from:
+    - app
+  ports:
+    - ":22"
+
+dbadmin:
+  image: phpmyadmin/phpmyadmin
+  links:
+    - db
+  environment:
+    - VIRTUAL_HOST=phpmyadmin.${vhost}
+
+redis01:
+  image: redis
+
+redis02:
+  image: redis
+
+memcached:
+  image: memcached
+
+db:
+  image: mariadb
+  environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    - MYSQL_DATABASE=magento
+  volumes:
+    - ${vhost}.mysqldb:/var/lib/mysql
+
+
+##############
+# MONITORING #
+##############
+
+influxdb:
+  image: tutum/influxdb:0.9
+  restart: always
+  environment:
+    - PRE_CREATE_DB=cadvisor
+  volumes:
+      - ${vhost}.influxdb:/data
+
+cadvisor:
+  image: google/cadvisor:v0.20.5
+  links:
+    - influxdb:influxsrv
+  command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+  restart: always
+  volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+
+grafana:
+  image: grafana/grafana:2.6.0
+  restart: always
+  links:
+    - influxdb:influxsrv
+  environment:
+    - VIRTUAL_HOST=monitoring.${vhost}
+    - VIRTUAL_PORT=3000
+    - HTTP_USER=${user}
+    - HTTP_PASS=${password}
+    - INFLUXDB_HOST=influxsrv
+    - INFLUXDB_PORT=8086
+    - INFLUXDB_NAME=cadvisor
+    - INFLUXDB_USER=root
+    - INFLUXDB_PASS=root

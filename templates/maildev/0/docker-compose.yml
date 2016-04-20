@@ -1,0 +1,15 @@
+maildev:
+  image: vibioh/maildev
+  ports:
+  - ${SMTP_PORT}:1025/tcp
+  labels:
+    traefik.port: '1080'
+    traefik.frontend.rule: 'Host'
+    traefik.frontend.value: 'maildev.${DOMAIN}'
+    traefik.frontend.passHostHeader: 'true'
+  read_only: true
+  log_opt:
+    max-size: '50m'
+  restart: 'no'
+  cpu_shares: 256
+  mem_limit: 134217728

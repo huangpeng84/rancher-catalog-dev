@@ -1,0 +1,30 @@
+.catalog:
+  name: Cassandra
+  version: 2.2.5-rancher1
+  description: |
+    (Experimental) Apache Cassandra cluster.
+  minimum_rancher_version: v0.56.0
+  maintainer: Autoshift
+  uuid: cassandra-0
+  questions:
+    - variable: "scale"
+      description: "Number of cassandra nodes."
+      label: "Scale:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "host_label"
+      description: "Hosts with label to deploy the kafka cluster"
+      label: "Host label:"
+      required: true
+      default: "stack=ml"
+      type: "string"
+cassandra:
+  scale: ${scale}
+  health_check:
+    port: 9042
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

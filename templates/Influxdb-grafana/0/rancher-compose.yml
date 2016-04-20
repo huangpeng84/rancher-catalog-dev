@@ -1,0 +1,15 @@
+.catalog:
+    name: "Influxdb"
+    version: "v1"
+    description: "Cadvisor from heqinqin build"
+    questions:
+     - variable: "HOST_LABEL"
+       label: "Host label"
+       description: "Specify a Rancher host label here that will be used it."
+       type: "string"
+       default: name=influxdb
+       required: true
+influxsrv:
+  scale: 1
+grafana:
+  scale: 1

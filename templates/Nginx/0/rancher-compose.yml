@@ -1,0 +1,11 @@
+.catalog:
+  name: "Nginx"
+  version: "Latest"
+  description: "Nginx: get nginx"
+  questions:
+    - variable: "indexer_filters"
+      description: |
+        không có gì ở đây hết kaka
+      label: "Logstash filters"
+      required: false
+      default: "hello word"

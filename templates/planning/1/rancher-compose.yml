@@ -1,0 +1,60 @@
+.catalog:
+  name: "Planning"
+  version: "3.14.0.3-SNAPSHOT"
+  description: "Planning"
+  minimum_rancher_version: v0.46.0
+  questions:
+    - variable: PLANNING_DB_TYPE
+      description: "Tipo da Base de dados."
+      label: "Tipo de database"
+      type: enum
+      options:
+        - SQLSERVER
+        - ORACLE
+      required: true
+    - variable: PLANNING_DEBUG
+      description: "Modo debug."
+      label: "Debug mode"
+      type: enum
+      options:
+        - ON
+        - OFF
+      required: false
+    - variable: PLANNING_DB_HOSTNAME
+      description: "Hostname do servidor de banco de dados."
+      label: "Database hostname"
+      type: "string"
+      required: true
+    - variable: PLANNING_DB_DATABASE
+      description: "Nome da base de dados."
+      label: "Database name"
+      type: "string"
+      required: true
+    - variable: PLANNING_DB_PORT
+      description: "Porta do servidor da base de dados."
+      label: "Database port"
+      type: "int"
+      required: true
+      default: 1433
+    - variable: PLANNING_DB_JNDI
+      description: "Nome JNDI"
+      label: "JNDI"
+      type: "string"
+      required: true
+      default: "XSCXPLAN"
+    - variable: PLANNING_DB_USERNAME
+      description: "Username utilizado para conectar a base de dados."
+      label: "Database username"
+      type: "string"
+      required: true
+    - variable: PLANNING_DB_PASSWORD
+      description: "Password utilizado para conectar a base de dados."
+      label: "Database password"
+      type: "password"
+      required: true
+database:
+  scale: 1
+algorithm:
+  scale: 1
+web:
+  scale: 1

@@ -1,0 +1,26 @@
+.catalog:
+  name: board-ui
+  version: 3.1.0-1
+  description: "Leankit Internal Node App: board-ui"
+  uuid: board-ui-3.1.0-1
+
+board-ui:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    response_timeout: 1000
+
+board-ui-app:
+  scale: 1
+  health_check:
+    port: 8028
+    interval: 2000
+    unhealthy_threshold: 2
+    request_line: GET /node/ui/board/_status HTTP/1.1
+    healthy_threshold: 2
+    response_timeout: 1000

@@ -1,0 +1,5 @@
+rq-dashboard:
+  image: docker-registry.crt.nersc.gov:5000/mini/rq-dashboard:0.1
+  ports:
+    - "9181:9181"
+

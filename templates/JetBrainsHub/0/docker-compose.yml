@@ -1,0 +1,6 @@
+Hub:
+  hostname: hub
+  image: steigr/hub
+  volumes:
+  - /data/JetBrains/Hub/volumes/opt/Hub/data:/opt/Hub/data
+  - /data/JetBrains/Hub/volumes/opt/Hub/backups:/opt/Hub/backups

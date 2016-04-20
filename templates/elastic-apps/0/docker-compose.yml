@@ -1,0 +1,48 @@
+elastic:
+  external_links:
+  - elastic-engine/elastic-endpoint:elastic-endpoint
+  image: rancher/dns-service
+
+eeasearch:
+    image: eeacms/eeasearch
+    restart: always
+    ports:
+        - 3000:3000
+    volumes:
+        - /code
+    environment:
+        - elastic_host=elastic
+        - elastic_port=9200
+        - SYNC_CRONTAB=30 * * * * # Sync every 30 minutes
+    labels:
+        io.rancher.scheduler.affinity:host_label: elastic=yes
+        io.rancher.container.hostname_override: container_name
+
+pam:
+    image: eeacms/pam:v2.0
+    restart: always
+    ports:
+        - 3010:3000 # Take up host 3010 port, can be removed if you use the loadbalancer
+    volumes:
+        - /code
+    environment:
+        - elastic_host=elastic
+        - elastic_port=9200
+    labels:
+        io.rancher.scheduler.affinity:host_label: elastic=yes
+        io.rancher.container.hostname_override: container_name
+
+aide:
+    image: eeacms/aide:v1.0-rc2
+    restart: always
+    ports:
+        - 3020:3000 # Take up host 3020 port
+    volumes:
+        - /code
+    environment:
+        - elastic_host=elastic
+        - elastic_port=9200
+        - SYNC_CRONTAB=0 4 * * * # Sync every 30 minutes
+    labels:
+        io.rancher.scheduler.affinity:host_label: elastic=yes
+        io.rancher.container.hostname_override: container_name

@@ -1,0 +1,29 @@
+.catalog:
+  name: MSSQL
+  version: 0.0-0
+  description:
+  uuid: mssql-0
+  questions:
+    - variable: sql_hostname
+      label: FQDN of MSSQL instance.
+      type: string
+      required: true
+    - variable: sql_port
+      label: MSSQL port
+      type: int
+      default: 1433
+    - variable: sql_domain
+      label: AD Domain
+      type: string
+      required: true
+    - variable: sql_username
+      label: AD Username
+      type: string
+      required: true
+    - variable: sql_password
+      label: AD User Password
+      type: password
+      required: true
+
+mssql:
+  hostname: ${sql_hostname}

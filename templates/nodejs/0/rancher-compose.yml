@@ -1,0 +1,41 @@
+.catalog:
+  name: NodeJS
+  version: latest
+  uuid: nodejs-0
+  questions:
+  - variable: DOMAIN
+    description: 'Domain name'
+    label: 'Domain:'
+    required: true
+    default: vibioh.fr
+    type: string
+  - variable: SUBDOMAIN
+    description: 'Subdomain name'
+    label: 'Subdomain:'
+    required: true
+    default: node
+    type: string
+  - variable: NODE_PORT
+    description: 'Node port for subdomain'
+    label: 'Node port:'
+    required: true
+    default: 3000
+    type: int
+  - variable: WORKING_DIR
+    description: 'Working directory path'
+    label: 'Working dir:'
+    required: true
+    default: /home/admin/project
+    type: string
+  - variable: NODE_COMMAND
+    description: 'Script to run at startup'
+    label: 'Script path:'
+    required: true
+    default: server.js
+    type: string
+  - variable: NODE_GLOBAL_DIR
+    description: 'NPM global prefix directory'
+    label: 'Npm directory:'
+    required: true
+    default: /var/node
+    type: string

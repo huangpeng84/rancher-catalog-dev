@@ -1,0 +1,7 @@
+name: Marathon
+description: |
+  Orchestrate Mesos frameworks and long-running services
+version: v1
+category: Frameworks
+maintainer: huangpeng <huangpeng1984101@163.com>
+minimum_rancher_version: v1.0.0

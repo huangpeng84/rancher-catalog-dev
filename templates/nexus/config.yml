@@ -1,0 +1,5 @@
+name: Nexus
+description: |
+  Sonatype Nexus Repository Manager
+version: 3
+category: Repositories

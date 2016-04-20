@@ -1,0 +1,14 @@
+phpmyadmin:
+  image: vibioh/phpmyadmin
+  labels:
+    traefik.frontend.value: 'phpmyadmin.${DOMAIN}'
+    traefik.frontend.passHostHeader: 'true'
+    traefik.frontend.rule: 'Host'
+    traefik.port: '1080'
+  links:
+  - ${MYSQL_SERVICE}:mysql
+  log_opt:
+    max-size: '50m'
+  restart: 'no'
+  cpu_shares: 512
+  mem_limit: 268435456

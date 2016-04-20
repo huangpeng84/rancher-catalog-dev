@@ -1,0 +1,5 @@
+name: MiGAP-GalaxyGE
+description: |
+  MeGAP on Galaxy with GridEngine
+version: 0.0.1
+category: Rancher Services

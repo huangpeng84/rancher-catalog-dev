@@ -1,0 +1,18 @@
+.catalog:
+  name: "Grafana"
+  version: "2.6.0-mgolly1"
+  description: "Grafana: Explore & Visualize Your Data"
+  uuid: grafana-2
+  questions:
+    - variable: "elasticsearch_source"
+      description: "Link to elasticsearch service or stack/service"
+      label: "Elasticsearch source"
+      type: "service"
+      required: true
+      default: "es/elasticsearch-clients"
+nginx-proxy:
+  metadata:
+    nginx:
+      conf:
+        servername: "grafana"
+        upstream_port: 3000 
