@@ -1,0 +1,59 @@
+openstackcontroller:
+    image: rancher/kolla-base:mitaka
+    privileged: true
+    net: host
+    labels:
+        io.rancher.scheduler.affinity:host_label: openstack=controller
+        io.rancher.sidekicks: openstackinventory
+        io.rancher.container.dns: true
+    pid: host
+    volumes:
+        - /run:/host/run
+        - /etc/kolla
+        - /opt/kolla
+        - /:/host
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /usr/local/share/kolla
+    stdin_open: true
+    tty: true
+    command: /run.sh controller
+    environment:
+        OPENSTACK_INTERNAL_VIP_ADDRESS: "${openstack_internal_vip_address}"
+        OPENSTACK_API_INTERFACE: "${openstack_api_interface}"
+        OPENSTACK_NEUTRON_INTERFACE: "${openstack_neutron_interface}"
+        OPENSTACK_ADMIN_PASSWORD: "${openstack_admin_password}"
+        ANSIBLE_PRIVATE_SSH_KEY: "${ansible_private_ssh_key}"
+openstackinventory:
+    image: rancher/kolla-base:mitaka
+    volumes_from:
+        - openstackcontroller
+    command:
+        - confd
+        - --backend
+        - rancher
+        - --prefix
+        - /2015-12-19
+    stdin_open: true
+    tty: true
+
+openstackcompute:
+    image: rancher/kolla-base:mitaka
+    privileged: true
+    net: host
+    pid: host
+    labels:
+        io.rancher.scheduler.affinity:host_label: openstack=compute
+        io.rancher.scheduler.global: true
+        io.rancher.container.dns: true
+    volumes:
+        - /run:/host/run
+        - /:/host
+        - /etc/kolla
+        - /opt/kolla
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /usr/local/share/kolla
+    stdin_open: true
+    tty: true
+    command: /run.sh
+    environment:
+        ANSIBLE_PUBLIC_SSH_KEY: "${ansible_public_ssh_key}"

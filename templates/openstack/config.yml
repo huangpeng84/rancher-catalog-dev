@@ -1,0 +1,6 @@
+name: Openstack
+description: |
+    Deploys basic Openstack Kolla deployment
+version: 2.0.1-rancher1
+category: Applications
+maintainer: Rancher Labs

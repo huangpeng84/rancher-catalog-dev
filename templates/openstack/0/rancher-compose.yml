@@ -1,0 +1,43 @@
+.catalog:
+    name: Openstack
+    version: 2.0.1-rancher1
+    projectURL: "https://github.com/rancher/kolla/tree/rancher-mitaka"
+    description: \|
+        Openstack Mitaka release.
+    questions:
+        - variable: "openstack_internal_vip_address"
+          type: string
+          required: true
+          description: |
+              This is the IP address you want your services to bind to. It should be the primary IP of the controller node.
+          label: "Internal VIP address"
+        - variable: "openstack_api_interface"
+          type: string
+          required: true
+          description: |
+              This is the network interface the VIP IP will live on.
+          label: "VIP Interface"
+        - variable: "openstack_neutron_interface"
+          type: string
+          required: true
+          description: |
+              This is the network interface for Neutron network
+          label: "Neutron Network Interface"
+        - variable: "openstack_admin_password"
+          type: password
+          required: true
+          description: |
+              The admin password for your Openstack cluster
+          label: "Admin(Keystone) password"
+        - variable: "ansible_private_ssh_key"
+          type: "multiline"
+          required: true
+          description: |
+              private SSH key to use for Ansible
+          label: Private SSH Key
+        - variable: "ansible_public_ssh_key"
+          type: "multiline"
+          required: true
+          description: |
+              public SSH key to use for Ansible
+          label: Public SSH Key
