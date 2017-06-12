@@ -1,0 +1,18 @@
+version: '2'
+services:
+    sinopia:
+        image: goomeo/sinopia:develop
+        tty: true
+        stdin_open: true
+        ports:
+            - ${sinopia_public_port}:4873/tcp
+        volumes:
+            - sinopia-storage:/cinabre/storage
+        environment:
+            GITLAB_URL: ${sinopia_gitlab_url}
+        labels:
+            io.rancher.container.hostname_override: container_name
+volumes:
+  sinopia-storage:
+    driver: rancher-nfs
+    external: true

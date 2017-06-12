@@ -1,0 +1,4 @@
+name: Sinopia - Private NPM registry
+version: cinabre-develop
+description: Sinopia is a private npm repository server.
+category: NPM, registry, packages

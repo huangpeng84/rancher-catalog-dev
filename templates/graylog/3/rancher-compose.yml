@@ -1,0 +1,25 @@
+.catalog:
+    name: "Graylog"
+    version: "v2.1.0-1"
+    description: "Open source log management that actually works. Pour le port 9000, veuillez passer par un nouveau LoadBalancer si vous voulez le rendre public"
+    questions:
+        - variable: graylog_password
+          description: "Password in sha2"
+          label: "SHA2 Password"
+          type: "string"
+          required: true
+        - variable: graylog_secret
+          description: "Password secret"
+          label: "Password secret"
+          type: "string"
+          required: true
+        - variable: graylog_fqdn
+          description: "IP ou Nom de domaine du serveur"
+          label: "FQDN"
+          type: "string"
+          required: true
+        - variable: es_service
+          description: "Service ElasticSearch"
+          label: "Service ElasticSearch"
+          type: "service"
+          required: true

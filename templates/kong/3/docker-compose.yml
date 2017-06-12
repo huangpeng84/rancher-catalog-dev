@@ -1,0 +1,42 @@
+version: '2'
+services:
+  postgres:
+     environment:
+       POSTGRES_USER: ${postgres_user}
+       POSTGRES_PASSWORD: ${postgres_password}
+       PGDATA: /data/postgres/data
+     labels:
+       io.rancher.container.hostname_override: container_name
+     tty: true
+     image: postgres:9.5.3
+     stdin_open: true
+     volumes:
+      - kong-postgres:/data/postgres/data
+  kong:
+    image: goomeo/kong:0.10.2
+    ports:
+      - 7946/tcp
+      - 7946/udp
+      - 8000/tcp
+      - 8001/tcp
+      - 8443/tcp
+    environment:
+      KONG_PG_HOST : postgres
+      KONG_PG_USER : ${postgres_user}
+      KONG_PG_PASSWORD : ${postgres_password}
+    labels:
+      io.rancher.container.hostname_override: container_name
+    tty: true
+    links:
+      - postgres:postgres
+  kong-dashboard:
+    image: pgbi/kong-dashboard
+    ports:
+      - 8080
+    labels:
+      io.rancher.container.hostname_override: container_name
+    tty: true
+volumes:
+  kong-postgres:
+    driver: rancher-nfs
+    external: true

@@ -1,0 +1,52 @@
+postgres-datavolume:
+  net: none
+  labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.start_once: true
+  volumes:
+      - /data/postgres/data
+  entrypoint: /bin/true
+  image: busybox
+postgres:
+   environment:
+     POSTGRES_USER: kong
+     POSTGRES_PASSWORD: kong
+     PGDATA: /data/postgres/data
+   log_driver: ''
+   labels:
+     io.rancher.container.hostname_override: container_name
+     io.rancher.sidekicks: postgres-datavolume
+   tty: true
+   log_opt: {}
+   image: postgres:9.5.3
+   stdin_open: true
+   volumes_from:
+       - postgres-datavolume
+kong:
+  image: littlebaydigital/kong:0.8.3-1
+  ports:
+  - 7946/tcp
+  - 7946/udp
+  - 8000/tcp
+  - 8001/tcp
+  - 8443/tcp
+  environment:
+    CLUSTER_LISTEN: rancher
+    DATABASE: postgres
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: kong
+    POSTGRES_PASSWORD: kong
+    POSTGRES_DB: kong
+  labels:
+    io.rancher.container.hostname_override: container_name
+  tty: true
+  links:
+    - postgres:postgres
+kong-dashboard:
+  image: pgbi/kong-dashboard
+  ports:
+    - 8080
+  labels:
+    io.rancher.container.hostname_override: container_name
+  tty: true

@@ -1,8 +1,4 @@
-name: Sentry
-description: |
-  Create a new instance of sentry application.
-version: 0
-category: Logging
-maintainer: Marco Vito Moscaritolo <mavimo@gmail.com>
-license: MIT
-projectURL: https://getsentry.com
+name: Sentry with plugins
+version: 8.10.0
+description: Sentry is a realtime event logging and aggregation platform
+category: Error Tracking

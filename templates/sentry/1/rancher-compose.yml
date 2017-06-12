@@ -32,7 +32,7 @@
       type: "string"
       required: false
       label: "SENTRY_SERVER_EMAIL"
-      description: "The smtp server address. see https://hub.docker.com/_/sentry/ for more info"
+      description: "The email in the FROM section. see https://hub.docker.com/_/sentry/ for more info"
 
     - variable: "sentry_email_host"
       type: "string"
@@ -52,11 +52,11 @@
       label: "SENTRY_EMAIL_PASSWORD"
       description: "The password for the email account. see https://hub.docker.com/_/sentry/ for more info"
 
-    - variable: "sentry_email_password"
-      type: "string"
+    - variable: "sentry_email_use_tls"
+      type: "boolean"
       required: false
-      label: "SENTRY_EMAIL_PASSWORD"
-      description: "The password for the email account. see https://hub.docker.com/_/sentry/ for more info"
+      label: "SENTRY_EMAIL_USE_TLS"
+      description: "Set if email connection use TLS. see https://hub.docker.com/_/sentry/ for more info"
 
     - variable: "sentry_email_port"
       type: "int"

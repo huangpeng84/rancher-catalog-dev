@@ -1,0 +1,4 @@
+name: MMS Agents
+version: latest
+description: MongoDB MMS Agents Stack (backup and monitoring)
+category: Database, Monitoring, Backup

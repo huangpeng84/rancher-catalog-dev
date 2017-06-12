@@ -1,0 +1,115 @@
+version: '2'
+services:
+  sentry-postgres:
+    environment:
+      POSTGRES_USER: sentry
+      POSTGRES_PASSWORD: secret
+      PGDATA: /data/postgres/data
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+    tty: true
+    image: postgres:9.5.3
+    stdin_open: true
+    volumes:
+      - sentry-postgres:/data/postgres/data
+  sentry-cron:
+    environment:
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: secret
+      SENTRY_EMAIL_HOST: ${sentry_email_host}
+      SENTRY_EMAIL_PASSWORD: ${sentry_email_password}
+      SENTRY_EMAIL_PORT: '${sentry_email_port}'
+      SENTRY_EMAIL_USER: ${sentry_email_user}
+      SENTRY_SECRET_KEY: ${sentry_secret_key}
+      SENTRY_SERVER_EMAIL: ${sentry_server_email}
+      GITLAB_APP_ID: ${gitlab_app_id}
+      GITLAB_APP_SECRET: ${gitlab_app_secret}
+      GITLAB_BASE_DOMAIN: ${gitlab_base_domain}
+      GITLAB_API_VERSION: ${gitlab_api_version}
+      GITLAB_HTTP_SCHEME: ${gitlab_http_scheme}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+    tty: true
+    command:
+    - run
+    - cron
+    image: goomeo/sentry:8.13.0
+    links:
+    - sentry-postgres:postgres
+    - sentry-redis:redis
+    stdin_open: true
+  sentry-redis:
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+    tty: true
+    image: redis:3.2.0-alpine
+    stdin_open: true
+    volumes:
+      - sentry-redis:/data
+  sentry:
+    ports:
+    - ${sentry_public_port}:9000/tcp
+    environment:
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: secret
+      SENTRY_EMAIL_HOST: ${sentry_email_host}
+      SENTRY_EMAIL_PASSWORD: ${sentry_email_password}
+      SENTRY_EMAIL_PORT: '${sentry_email_port}'
+      SENTRY_EMAIL_USER: ${sentry_email_user}
+      SENTRY_SECRET_KEY: ${sentry_secret_key}
+      SENTRY_SERVER_EMAIL: ${sentry_server_email}
+      GITLAB_APP_ID: ${gitlab_app_id}
+      GITLAB_APP_SECRET: ${gitlab_app_secret}
+      GITLAB_BASE_DOMAIN: ${gitlab_base_domain}
+      GITLAB_API_VERSION: ${gitlab_api_version}
+      GITLAB_HTTP_SCHEME: ${gitlab_http_scheme}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+    tty: true
+    command:
+    - /bin/bash
+    - -c
+    - sentry upgrade --noinput && sentry createuser --email ${sentry_inital_user_email} --password ${sentry_inital_user_password} --superuser && /entrypoint.sh run web || /entrypoint.sh run web
+    image: goomeo/sentry:8.13.0
+    links:
+    - sentry-postgres:postgres
+    - sentry-redis:redis
+    stdin_open: true
+  sentry-worker:
+    environment:
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: secret
+      SENTRY_EMAIL_HOST: ${sentry_email_host}
+      SENTRY_EMAIL_PASSWORD: ${sentry_email_password}
+      SENTRY_EMAIL_PORT: '${sentry_email_port}'
+      SENTRY_EMAIL_USER: ${sentry_email_user}
+      SENTRY_SECRET_KEY: ${sentry_secret_key}
+      SENTRY_SERVER_EMAIL: ${sentry_server_email}
+      GITLAB_APP_ID: ${gitlab_app_id}
+      GITLAB_APP_SECRET: ${gitlab_app_secret}
+      GITLAB_BASE_DOMAIN: ${gitlab_base_domain}
+      GITLAB_API_VERSION: ${gitlab_api_version}
+      GITLAB_HTTP_SCHEME: ${gitlab_http_scheme}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+    tty: true
+    command:
+    - run
+    - worker
+    image: goomeo/sentry:8.13.0
+    links:
+    - sentry-postgres:postgres
+    - sentry-redis:redis
+    stdin_open: true
+volumes:
+  sentry-postgres:
+    driver: rancher-nfs
+    external: true
+  sentry-redis:
+    driver: rancher-nfs
+    external: true

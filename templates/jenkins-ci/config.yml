@@ -1,0 +1,5 @@
+name: Jenkins
+description: |
+  Jenkins CI server configured for Gitlab (LTS)
+version: 2.46.2
+category: Continuous Integration

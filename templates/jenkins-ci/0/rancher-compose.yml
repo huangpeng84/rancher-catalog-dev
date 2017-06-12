@@ -1,0 +1,46 @@
+.catalog:
+  name: Jenkins
+  version: 2.46.2
+  description: |
+    Jenkins CI management server.
+  questions:
+  - variable: "plugins"
+    type: "multiline"
+    label: "List of Plugins"
+    description: |
+      List of plugins in the format <plugin_name>[:<version>]
+      one entry per line.
+    default: |
+      workflow-job
+      workflow-cps
+      workflow-step-api
+      workflow-scm-step
+      token-macro
+      credentials
+      structs
+      git
+      git:2.0.3
+      git:2.4.0
+      git-client
+      github
+      github-api
+      github-oauth
+      greenballs
+      junit
+      plain-credentials
+      scm-api
+      ssh-credentials
+      ssh-slaves
+      swarm
+      gatling
+      blueocean
+      nodejs
+      gitlab-plugin
+      gitlab-hook
+      gitlab-oauth
+      gitlab-logo
+      mailer
+jenkins-primary:
+  metadata:
+    plugins: |
+      ${plugins}

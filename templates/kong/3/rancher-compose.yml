@@ -1,0 +1,28 @@
+.catalog:
+  name: Kong
+  version: v0.10.2
+  description: |
+    Kong API Gateway
+  minimum_rancher_version: v1.0.0
+  uuid: kong-0
+  questions:
+  - variable: postgres_password
+    description: "Postgres password"
+    label: "Postgres password"
+    type: "password"
+    required: true
+  - variable: postgres_user
+    description: "Postgres Admin user"
+    label: "Postgres Admin user"
+    type: "string"
+    default: kong
+    required: true
+kong:
+  retain_ip: true
+  health_check:
+    port: 8001
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: 'GET /# HTTP/1.0'
+    healthy_threshold: 2
+    response_timeout: 5000

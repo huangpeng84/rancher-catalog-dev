@@ -1,0 +1,54 @@
+graylog-datavolume:
+    net: none
+    labels:
+        io.rancher.container.hostname_override: container_name
+        io.rancher.container.start_once: true
+    volumes:
+        - /graylog/data
+        - /graylog/logs
+        - /graylog/plugins
+    entrypoint: /bin/true
+    image: busybox
+mongodb-datavolume:
+    net: none
+    labels:
+        io.rancher.container.hostname_override: container_name
+        io.rancher.container.start_once: true
+    volumes:
+        - /data/db
+    entrypoint: /bin/true
+    image: busybox
+mongodb:
+    image: "mongo:3"
+    volumes_from:
+        - mongodb-datavolume
+    labels:
+        io.rancher.container.hostname_override: container_name
+        io.rancher.sidekicks: mongodb-datavolume
+graylog:
+    restart: always
+    environment:
+        GRAYLOG_PASSWORD_SECRET: ${graylog_secret}
+        GRAYLOG_ROOT_PASSWORD_SHA2: ${graylog_password}
+        GRAYLOG_REST_TRANSPORT_URI: "http://${graylog_fqdn}:12900"
+    image: "graylog2/server:2.1.0-beta.4-1"
+    labels:
+        io.rancher.container.hostname_override: container_name
+        io.rancher.sidekicks: graylog-datavolume
+    volumes_from:
+        - graylog-datavolume
+    links:
+        - mongodb:mongo
+    external_links:
+          - ${es_service}:elasticsearch
+lb:
+    restart: always
+    image: rancher/load-balancer-service
+    ports:
+        - 9000:9000
+        - 12900:12900
+    links:
+        # Target services in the same stack will be listed as a link
+        - graylog:graylog
+    labels:
+        io.rancher.scheduler.global: 'true'

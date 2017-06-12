@@ -1,0 +1,17 @@
+.catalog:
+  name: MMS Agents
+  version: latest
+  description: Mongodb Management Service offers possibility to monitor and backup your MongoDB servers
+  questions:
+      - variable: "mms_server"
+        type: "string"
+        required: true
+        label: "Server"
+        description: "Server used to collect MMS monitoring data and backup"
+        default: "https://mms.mongodb.com"
+
+      - variable: "mms_api_key"
+        type: "string"
+        required: true
+        label: "Api-Key"
+        description: "Api-key used to connect to MMS server"

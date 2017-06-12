@@ -1,0 +1,25 @@
+.catalog:
+    name: "Graylog"
+    version: "v2.0.2-2"
+    description: "Open source log management that actually works."
+    questions:
+        - variable: graylog_password
+          description: "Password in sha2"
+          label: "SHA2 Password"
+          type: "string"
+          required: true
+        - variable: graylog_secret
+          description: "Password secret"
+          label: "Password secret"
+          type: "string"
+          required: true
+        - variable: graylog_fqdn
+          description: "IP ou Nom de domaine du serveur"
+          label: "FQDN"
+          type: "string"
+          required: true
+        - variable: es_service
+          description: "Service ElasticSearch"
+          label: "Service ElasticSearch"
+          type: "service"
+          required: true

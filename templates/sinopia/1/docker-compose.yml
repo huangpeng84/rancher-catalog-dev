@@ -1,0 +1,24 @@
+sinopia-datavolume:
+    net: none
+    labels:
+        io.rancher.container.hostname_override: container_name
+        io.rancher.container.start_once: true
+    volumes:
+        - /sinopia/storage
+    entrypoint: /bin/true
+    image: busybox
+sinopia:
+    image: goomeo/sinopia:develop
+    log_driver: ''
+    tty: true
+    log_opt: {}
+    stdin_open: true
+    ports:
+        - ${sinopia_public_port}:4873/tcp
+    volumes_from:
+        - sinopia-datavolume
+    environment:
+        GITLAB_URL: ${sinopia_gitlab_url}
+    labels:
+        io.rancher.container.hostname_override: container_name
+        io.rancher.sidekicks: sinopia-datavolume

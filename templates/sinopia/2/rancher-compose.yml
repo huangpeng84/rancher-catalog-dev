@@ -1,0 +1,17 @@
+.catalog:
+    name: Sinopia - Private NPM registry
+    version: cinabre-develop-nfs
+    description: Sinopia is a private npm repository server.
+
+    questions:
+        - variable: "sinopia_gitlab_url"
+          type: "string"
+          required: true
+          label: "Gitlab URL"
+          description: "the gitlab server url used to authenticate in Sinopia"
+
+        - variable: "sinopia_public_port"
+          type: "int"
+          required: false
+          label: "Sinopia public port"
+          description: "Port that Sinopia will listen on. Alternatively you could point a load balancer to the port 4873 of this container"
